@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import MenuLinks from './MenuLinks'
 import MobileMenu from './MobileMenu'
 
 
@@ -26,18 +27,7 @@ const Menu = () => {
   return (
     <>
     <StyledMenu>
-        <ul>
-          <li><a href="/">Home</a></li>
-        </ul>
-        <ul>
-          <li><a href="/albums">Albums</a></li>
-        </ul>
-        <ul>
-          <li><a href="/about">About</a></li>
-        </ul>
-        <ul>
-          <li><a href="/contact">Contact</a></li>
-        </ul>
+       <MenuLinks/>
       </StyledMenu>
       <MobileMenu/>
       </>

@@ -1,6 +1,8 @@
-import React,{ useState} from 'react'
+import React,{ useState,useRef} from 'react'
 import styled from 'styled-components'
 import BurgerIcon from './BurgerIcon'
+import { useOnClickOutside } from '../../hooks'
+import MenuLinks from './MenuLinks'
 
 const MobileMenuWrapper = styled.nav`
 @media ${({theme}) => theme.device.phoneMin}{
@@ -50,23 +52,19 @@ const MobileMenuList = styled.div`
 
 `
 const MobileMenu = () => {
+
+
   const [open, setOpen] = useState(false);
+  const node = useRef();
+  const menuId = "main-menu";
+  useOnClickOutside(node, () => setOpen(false));
+
+
   return (
-    <MobileMenuWrapper>
+    <MobileMenuWrapper ref={node}>
       <BurgerIcon open={open} setOpen={setOpen}/>
-    <MobileMenuList open={open}>
-      <ul>
-            <li><a href="/">Home</a></li>
-          </ul>
-          <ul>
-            <li><a href="/albums">Albums</a></li>
-          </ul>
-          <ul>
-            <li><a href="/about">About</a></li>
-          </ul>
-          <ul>
-            <li><a href="/contact">Contact</a></li>
-        </ul>
+    <MobileMenuList open={open} setOpen={setOpen}>
+      <MenuLinks/>
     </MobileMenuList>
     </MobileMenuWrapper>
   )
