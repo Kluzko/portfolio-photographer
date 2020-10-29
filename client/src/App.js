@@ -5,7 +5,7 @@ import GlobalStyle from './globalStyles';
 
 
 // Components
-import Navbar from './components/Navbar'
+import Navbar from './components/navbar/Navbar'
 function App() {
   return (
     <Theme>

@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import MobileMenu from './MobileMenu'
 
 
 const StyledMenu = styled.div`
@@ -38,6 +39,7 @@ const Menu = () => {
           <li><a href="/contact">Contact</a></li>
         </ul>
       </StyledMenu>
+      <MobileMenu/>
       </>
   )
 }

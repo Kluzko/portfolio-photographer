@@ -17,6 +17,9 @@ form, fieldset, input, p, blockquote, table, th, td, embed, object {
  
   body{
 		position:relative;
+		height:100vh;
+		overflow-x:none;
+		overflow-y:none;
 	}
 table {
 	border-collapse: collapse;
@@ -33,15 +36,8 @@ h1, h2, h3, h4, h5, h6, strong, th, var {
 ul {
 	list-style: none;
 	}
-caption, th {
-	text-align: left;
-	}
-h1, h2, h3, h4, h5, h6 {
-	font-size: 1.0em;
-	}
-q:before, q:after {
-	content: '';
-	}
+
+
 a, ins {
 	text-decoration: none;
   color:inherit;
