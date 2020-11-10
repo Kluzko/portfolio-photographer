@@ -56,7 +56,7 @@ const MobileMenu = () => {
 
   const [open, setOpen] = useState(false);
   const node = useRef();
-  const menuId = "main-menu";
+  
   useOnClickOutside(node, () => setOpen(false));
 
 
