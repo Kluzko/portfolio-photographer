@@ -1,19 +1,21 @@
-const mongoose = require("mongoose");
+import { Schema } from "mongoose";
 
-const AlbumSchema = mongoose.Schema({
+const AlbumSchema = new Schema({
   name: {
     type: String,
-    required: [true, "Name is required"],
+    required: [true, "Please add album name"],
     unique: true,
     trim: true,
-    maxlength: [30, "Name can not be more than 30 characters"],
+    maxlength: [30, "Name can not be more then 30 characters"],
   },
-  textColor: String,
   slug: String,
-  bckUrl: {
+  // Array of images
+  backgroundImage: {
     type: String,
-    required: [true, "Background photo is required"],
+    required: [true, "Please add a background picture for albums"],
+  },
+  imageUrl: {
+    type: [String],
+    default: [],
   },
 });
-
-module.exports = mongoose.model("Album", AlbumSchema);
