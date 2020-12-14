@@ -1,37 +1,33 @@
-import React from 'react'
-import styled from 'styled-components'
-import MenuLinks from './MenuLinks'
-import MobileMenu from './MobileMenu'
-
+import React from "react";
+import styled from "styled-components";
+import MenuLinks from "./MenuLinks";
+import MobileMenu from "./MobileMenu";
 
 const StyledMenu = styled.div`
-  display:flex;
-  @media ${({theme}) => theme.device.phoneMax }{
-      display:none;
-      visibility:0;
-    }
-
-  ul{
-    margin-top:1.4em;
+  display: flex;
+  @media ${({ theme }) => theme.device.phoneMax} {
+    display: none;
+    visibility: 0;
   }
 
-  li{
-    margin-right:2em;
+  li {
+    margin-top: 1.4em;
+    margin-right: 2em;
   }
-  a{
-    font-weight:400;
+  a {
+    font-weight: 400;
   }
-`
+`;
 
 const Menu = () => {
   return (
     <>
-    <StyledMenu>
-       <MenuLinks/>
+      <StyledMenu>
+        <MenuLinks />
       </StyledMenu>
-      <MobileMenu/>
-      </>
-  )
-}
+      <MobileMenu />
+    </>
+  );
+};
 
-export default Menu
+export default Menu;

@@ -1,22 +1,26 @@
-import React from 'react'
+import React from "react";
+import { NavLink } from "react-router-dom";
+const MenuLinks = () => (
+  <>
+    <li>
+      <NavLink to="/">Home</NavLink>
+    </li>
 
-const MenuLinks = () => {
-  return (
-    <>
-      <ul>
-            <li><a href="/">Home</a></li>
-          </ul>
-          <ul>
-            <li><a href="/albums">Albums</a></li>
-          </ul>
-          <ul>
-            <li><a href="/about">About</a></li>
-          </ul>
-          <ul>
-            <li><a href="/contact">Contact</a></li>
-        </ul>
-    </>
-  )
-}
+    <li>
+      <NavLink to="/albums">Albums</NavLink>
+    </li>
+    <li>
+      <NavLink to="/addAlbum">Add album</NavLink>
+    </li>
 
-export default MenuLinks
+    <li>
+      <NavLink to="/about">About</NavLink>
+    </li>
+
+    <li>
+      <NavLink to="/contact">Contact</NavLink>
+    </li>
+  </>
+);
+
+export default MenuLinks;
