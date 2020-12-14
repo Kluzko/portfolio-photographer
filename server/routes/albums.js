@@ -1,16 +1,16 @@
-const express = require("express");
-const {
+import { Router } from "express";
+import {
   getAlbum,
   getAlbums,
   deleteAlbum,
   updateAlbum,
   createAlbum,
-} = require("../controllers/albums");
+} from "../controllers/albums";
 
-const router = express.Router();
+const router = Router();
 
 router.route("/").get(getAlbums).post(createAlbum);
 
 router.route("/:id").get(getAlbum).put(updateAlbum).delete(deleteAlbum);
 
-module.exports = router;
+export default router;
