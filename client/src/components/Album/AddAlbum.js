@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import { API_KEY, UPLOAD_PRESET, CLOUD_NAME } from "../../config";
 // Styles
 import {
   Wrapper,
@@ -7,10 +7,11 @@ import {
   StyledLabel,
   DefaultInput,
   StyledButton,
+  ErrorMsg,
 } from "./Styles";
 
 const AddAlbum = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [Loading, setLoading] = useState(0);
   const [error, setError] = useState(false);
   // Album name
   const [albumName, setAlubmName] = useState();
@@ -21,12 +22,7 @@ const AddAlbum = () => {
   const [selectedFile, setSelectedFile] = useState();
   const [preview, setPreview] = useState();
 
-  // cloudnary upload api endpoint
-  const api_cloudinary =
-    "https://api.cloudinary.com/v1_1/dhv5fupbk/image/upload";
-
   // preview as side effect, whenever selected file is changed
-
   useEffect(() => {
     if (!selectedFile) {
       setPreview(undefined);
@@ -48,31 +44,37 @@ const AddAlbum = () => {
     }
     setSelectedFile(files[0]);
   };
+
   // file upload
   const handleSingleFileUpload = async (file) => {
     const formData = new FormData();
     formData.append("file", file);
-    formData.append("upload_preset", "u5wuh435");
-    setIsLoading(true);
-    setError(null);
+    formData.append("api_key", API_KEY);
+    formData.append("upload_preset", UPLOAD_PRESET);
 
+    setError(null);
+    setLoading(true);
     // send cloudinary image and presets info
 
     try {
-      const res = await fetch(api_cloudinary, {
-        method: "POST",
-        body: formData,
-      });
+      const res = await fetch(
+        `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/upload`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
 
       //get all data
       const img = await res.json();
       //  get url to send for db
       const fileUrl = await img.eager[0].secure_url;
       setFileUrl(fileUrl);
-      setIsLoading(false);
+
+      setLoading(false);
     } catch (e) {
       setError(e);
-      setIsLoading(false);
+      setLoading(false);
     }
   };
 
@@ -124,9 +126,9 @@ const AddAlbum = () => {
           </div>
         )}
         <StyledButton type="submit">
-          {isLoading ? "Please wait file is uploading" : "Submit"}
-          Submit
+          {Loading ? "Loading..." : "Submit"}
         </StyledButton>
+        {error && <ErrorMsg>Someting went wrong</ErrorMsg>}
       </form>
     </Wrapper>
   );
