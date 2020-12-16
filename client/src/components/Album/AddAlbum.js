@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { API_KEY, UPLOAD_PRESET, CLOUD_NAME } from "../../config";
+import React, { useState } from "react";
+import { useDropzone } from "react-dropzone";
+import { UPLOAD_PRESET, CLOUD_NAME } from "../../config";
 // Styles
 import {
   Wrapper,
@@ -7,81 +8,74 @@ import {
   StyledLabel,
   DefaultInput,
   StyledButton,
+  Dropzone,
   ErrorMsg,
 } from "./Styles";
 
 const AddAlbum = () => {
   const [Loading, setLoading] = useState(0);
-  const [error, setError] = useState(false);
   // Album name
   const [albumName, setAlubmName] = useState();
   // Album title text color
   const [color, setColor] = useState();
-  // file
-  const [fileUrl, setFileUrl] = useState();
-  const [selectedFile, setSelectedFile] = useState();
-  const [preview, setPreview] = useState();
 
-  // preview as side effect, whenever selected file is changed
-  useEffect(() => {
-    if (!selectedFile) {
-      setPreview(undefined);
-      return;
-    }
+  const [file, setFile] = useState(null); // state for storing actual image
+  const [previewSrc, setPreviewSrc] = useState(""); // state for storing previewImage
+  const [errorMsg, setErrorMsg] = useState("");
+  const [isPreviewAvailable, setIsPreviewAvailable] = useState(false); // state to show preview only for images
 
-    const objectUrl = URL.createObjectURL(selectedFile);
-    setPreview(objectUrl);
+  const onDrop = (files) => {
+    const [uploadedFile] = files;
+    setFile(uploadedFile);
 
-    // free memory when ever this component is unmounted
-    return () => URL.revokeObjectURL(objectUrl);
-  }, [selectedFile]);
-
-  const handlePreviewFile = (files) => {
-    // check if it existss
-    if (!files || files === 0) {
-      setSelectedFile(undefined);
-      return;
-    }
-    setSelectedFile(files[0]);
+    const fileReader = new FileReader();
+    fileReader.onload = () => {
+      setPreviewSrc(fileReader.result);
+    };
+    fileReader.readAsDataURL(uploadedFile);
+    setIsPreviewAvailable(uploadedFile.name.match(/\.(jpeg|jpg|png)$/));
   };
 
-  // file upload
-  const handleSingleFileUpload = async (file) => {
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("api_key", API_KEY);
-    formData.append("upload_preset", UPLOAD_PRESET);
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    accepts: "image/*",
+    multiple: false,
+  });
 
-    setError(null);
-    setLoading(true);
-    // send cloudinary image and presets info
-
-    try {
-      const res = await fetch(
-        `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/upload`,
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
-
-      //get all data
-      const img = await res.json();
-      //  get url to send for db
-      const fileUrl = await img.eager[0].secure_url;
-      setFileUrl(fileUrl);
-
-      setLoading(false);
-    } catch (e) {
-      setError(e);
-      setLoading(false);
-    }
-  };
-
-  console.log(fileUrl);
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await handleSingleFileUpload(selectedFile);
+    try {
+      if (file) {
+        const url = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/upload`;
+        setLoading(true);
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("upload_preset", UPLOAD_PRESET);
+        const res = await fetch(url, {
+          method: "POST",
+          body: formData,
+        });
+        const data = await res.json();
+        const fileUrl = await data.eager[0].secure_url;
+
+        setLoading(false);
+        setErrorMsg("");
+        if (albumName.trim() !== "" && color.trim() !== "" && fileUrl) {
+          console.log(`
+            albumName: ${albumName}
+            color: ${color}
+            backgroundUrl: ${fileUrl}
+
+          `);
+        } else {
+          setErrorMsg("Please enter all the field values.");
+        }
+      } else {
+        setErrorMsg("Please select a file to add.");
+      }
+    } catch (error) {
+      error.response && setErrorMsg(error.response.data);
+    }
   };
   return (
     <Wrapper>
@@ -107,28 +101,39 @@ const AddAlbum = () => {
         </div>
         <div>
           <StyledLabel>Upload background image</StyledLabel>
-          <DefaultInput
-            type="file"
-            onChange={(e) => handlePreviewFile(e.target.files)}
-          />
+          <Dropzone {...getRootProps()} isDragActive={isDragActive}>
+            Select your image
+            <DefaultInput {...getInputProps()} />
+          </Dropzone>
         </div>
-        {selectedFile && (
-          <div>
-            <p>Image preview of {albumName} </p>
+
+        {/* TODO
+        
+          ADD animated color gradient wich starts when loading starts on loading = true
+        
+        */}
+        {previewSrc && isPreviewAvailable && (
+          <div className="image-preview">
             <img
-              src={preview}
-              alt={preview}
+              className="preview-image"
+              src={previewSrc}
+              alt="Preview"
               style={{
-                width: "400px",
+                width: "300px",
                 objectFit: "contain",
               }}
             />
           </div>
         )}
-        <StyledButton type="submit">
+
+        <StyledButton type="submit" width="15rem">
           {Loading ? "Loading..." : "Submit"}
         </StyledButton>
-        {error && <ErrorMsg>Someting went wrong</ErrorMsg>}
+        {errorMsg && (
+          <div>
+            <ErrorMsg>{errorMsg}</ErrorMsg>
+          </div>
+        )}
       </form>
     </Wrapper>
   );

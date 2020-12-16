@@ -35,8 +35,23 @@ const DefaultInput = styled.input`
   ${baseInputStyles}
 `;
 
-const StyledButton = styled.button`
+const Dropzone = styled.div`
+  height: 1rem;
   margin-top: 1rem;
+  padding: 1rem;
+  border: ${({ isDragActive }) =>
+    isDragActive ? "2px solid purple" : "2px dashed salmon"};
+  display: flex;
+  width: 11rem;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+`;
+
+const StyledButton = styled.button`
+  margin-top: 3rem;
   padding: 0.7em;
   width: ${({ width }) => (width ? width : "320px")};
   color: #007cb3;
@@ -44,4 +59,12 @@ const StyledButton = styled.button`
   cursor: pointer;
 `;
 
-export { Wrapper, Title, DefaultInput, StyledLabel, StyledButton, ErrorMsg };
+export {
+  Wrapper,
+  Title,
+  DefaultInput,
+  StyledLabel,
+  StyledButton,
+  ErrorMsg,
+  Dropzone,
+};
