@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDropzone } from "react-dropzone";
+import Loader from "react-loader-spinner";
 import { UPLOAD_PRESET, CLOUD_NAME } from "../../config";
 // Styles
 import {
@@ -10,6 +11,7 @@ import {
   StyledButton,
   Dropzone,
   ErrorMsg,
+  ImageWrapper,
 } from "./Styles";
 
 const AddAlbum = () => {
@@ -46,6 +48,7 @@ const AddAlbum = () => {
     e.preventDefault();
     try {
       if (file) {
+        // if file is set send it to cloudinary api
         const url = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/upload`;
         setLoading(true);
         const formData = new FormData();
@@ -55,10 +58,10 @@ const AddAlbum = () => {
           method: "POST",
           body: formData,
         });
+        // get data and pull out 1000w image url
         const data = await res.json();
         const fileUrl = await data.eager[0].secure_url;
 
-        setLoading(false);
         setErrorMsg("");
         if (albumName.trim() !== "" && color.trim() !== "" && fileUrl) {
           console.log(`
@@ -67,6 +70,7 @@ const AddAlbum = () => {
             backgroundUrl: ${fileUrl}
 
           `);
+          setLoading(false);
         } else {
           setErrorMsg("Please enter all the field values.");
         }
@@ -86,7 +90,7 @@ const AddAlbum = () => {
           <DefaultInput
             type="text"
             placeholder="Trip to NY..."
-            width="300px"
+            width="250px"
             onChange={(e) => setAlubmName(e.target.value)}
           />
         </div>
@@ -107,27 +111,30 @@ const AddAlbum = () => {
           </Dropzone>
         </div>
 
-        {/* TODO
-        
-          ADD animated color gradient wich starts when loading starts on loading = true
-        
-        */}
-        {previewSrc && isPreviewAvailable && (
-          <div className="image-preview">
-            <img
-              className="preview-image"
-              src={previewSrc}
-              alt="Preview"
+        <StyledButton type="submit" width="15rem" Loading={Loading}>
+          {Loading ? (
+            <div
               style={{
-                width: "300px",
-                objectFit: "contain",
+                display: "flex",
+                alignContent: "center",
+                justifyContent: "center",
+                background: "none",
               }}
-            />
-          </div>
-        )}
-
-        <StyledButton type="submit" width="15rem">
-          {Loading ? "Loading..." : "Submit"}
+            >
+              <span>Loading ... </span>
+              <Loader
+                type="Circles"
+                color="#00BFFF"
+                width={20}
+                height={20}
+                style={{
+                  background: "none",
+                }}
+              />
+            </div>
+          ) : (
+            "Submit"
+          )}
         </StyledButton>
         {errorMsg && (
           <div>
@@ -135,6 +142,20 @@ const AddAlbum = () => {
           </div>
         )}
       </form>
+
+      {previewSrc && isPreviewAvailable && (
+        <ImageWrapper>
+          <Title>Album Cart Preview</Title>
+          <p
+            style={{
+              color: color,
+            }}
+          >
+            {albumName}
+          </p>
+          <img className="preview-image" src={previewSrc} alt="Preview" />
+        </ImageWrapper>
+      )}
     </Wrapper>
   );
 };

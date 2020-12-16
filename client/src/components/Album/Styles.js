@@ -59,6 +59,36 @@ const StyledButton = styled.button`
   cursor: pointer;
 `;
 
+const ImageWrapper = styled.div`
+  width: 500px;
+  height: 500px;
+  position: absolute;
+  top: 20%;
+  right: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  Title {
+    text-align: center;
+  }
+  p {
+    font-size: 1.5rem;
+    position: absolute;
+    top: 35%;
+    left: 50px;
+    z-index: 10;
+    font-weight: bold;
+    background: transparent;
+  }
+
+  img {
+    max-width: 100%;
+    object-fit: cover;
+  }
+`;
+
 export {
   Wrapper,
   Title,
@@ -67,4 +97,5 @@ export {
   StyledButton,
   ErrorMsg,
   Dropzone,
+  ImageWrapper,
 };
