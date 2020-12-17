@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useDropzone } from "react-dropzone";
 import Loader from "react-loader-spinner";
-import { UPLOAD_PRESET, CLOUD_NAME } from "../../config";
+import { useHistory } from "react-router-dom";
+import { UPLOAD_PRESET, CLOUD_NAME, SERVER_API } from "../../config";
 // Styles
 import {
   Wrapper,
@@ -25,6 +26,7 @@ const AddAlbum = () => {
   const [previewSrc, setPreviewSrc] = useState(""); // state for storing previewImage
   const [errorMsg, setErrorMsg] = useState("");
   const [isPreviewAvailable, setIsPreviewAvailable] = useState(false); // state to show preview only for images
+  let history = useHistory();
 
   const onDrop = (files) => {
     const [uploadedFile] = files;
@@ -61,16 +63,33 @@ const AddAlbum = () => {
         // get data and pull out 1000w image url
         const data = await res.json();
         const fileUrl = await data.eager[0].secure_url;
-
+        console.log(fileUrl);
         setErrorMsg("");
         if (albumName.trim() !== "" && color.trim() !== "" && fileUrl) {
-          console.log(`
-            albumName: ${albumName}
-            color: ${color}
-            backgroundUrl: ${fileUrl}
-
-          `);
+          // Craeting Date form
+          const albumData = new FormData();
+          albumData.append("name", albumName);
+          albumData.append("bckImgUrl", fileUrl);
+          albumData.append("color", color);
+          // change albumData to json
+          const object = {};
+          albumData.forEach((value, key) => (object[key] = value));
+          // sending data to /api/v1/albums
+          const res = await fetch(`${SERVER_API}/api/v1/albums`, {
+            method: "POST",
+            body: JSON.stringify(object),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+          if (!res.ok) {
+            const message = `An error has occured: ${res.status}`;
+            setErrorMsg(message);
+          }
+          const data = await res.json();
+          const id = await data.data._id;
           setLoading(false);
+          history.push(`/album/${id}`);
         } else {
           setErrorMsg("Please enter all the field values.");
         }
@@ -111,6 +130,20 @@ const AddAlbum = () => {
           </Dropzone>
         </div>
 
+        {previewSrc && isPreviewAvailable && (
+          <ImageWrapper>
+            <Title>Album Cart Preview</Title>
+            <p
+              style={{
+                color: color,
+              }}
+            >
+              {albumName}
+            </p>
+            <img className="preview-image" src={previewSrc} alt="Preview" />
+          </ImageWrapper>
+        )}
+
         <StyledButton type="submit" width="15rem" Loading={Loading}>
           {Loading ? (
             <div
@@ -142,20 +175,6 @@ const AddAlbum = () => {
           </div>
         )}
       </form>
-
-      {previewSrc && isPreviewAvailable && (
-        <ImageWrapper>
-          <Title>Album Cart Preview</Title>
-          <p
-            style={{
-              color: color,
-            }}
-          >
-            {albumName}
-          </p>
-          <img className="preview-image" src={previewSrc} alt="Preview" />
-        </ImageWrapper>
-      )}
     </Wrapper>
   );
 };
