@@ -11,6 +11,7 @@
     "react-color": "^2.19.3",
     "react-dom": "^17.0.1",
     "react-dropzone": "^11.2.4",
+    "react-loader-spinner": "^3.1.14",
     "react-query": "^3.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.4",
