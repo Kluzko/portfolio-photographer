@@ -3,6 +3,7 @@ const { config } = require("dotenv");
 const morgan = require("morgan");
 const colors = require("colors");
 const connectDB = require("./config/db");
+const cors = require("cors");
 
 // Load env vars
 config({ path: "./config/config.env" });
@@ -14,6 +15,10 @@ connectDB();
 const albums = require("./routes/albums");
 
 const app = express();
+// body parser
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Dev logging middleware
 if (process.env.NODE_ENV === "development") {
