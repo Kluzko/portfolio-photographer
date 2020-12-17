@@ -3,6 +3,11 @@ import styled, { css } from "styled-components";
 const Wrapper = styled.div`
   margin-top: 5%;
   margin-left: 10%;
+
+  @media ${({ theme }) => theme.device.phoneMax} {
+    margin-top: 10%;
+    margin-left: 20%;
+  }
 `;
 
 const Title = styled.h1`
@@ -51,27 +56,30 @@ const Dropzone = styled.div`
 `;
 
 const StyledButton = styled.button`
-  margin-top: 3rem;
+  margin-top: 1rem;
   padding: 0.7em;
   width: ${({ width }) => (width ? width : "320px")};
-  color: #007cb3;
-  border: 1px solid #007cb3;
+  color: ${({ theme }) => theme.colors.primary};
+  border: 1px solid ${({ theme }) => theme.colors.primary};
   cursor: pointer;
 `;
 
+// Add breakpoints for bigger displays
 const ImageWrapper = styled.div`
   width: 500px;
   height: 500px;
   position: absolute;
-  top: 20%;
-  right: 20%;
+  top: 10%;
+  right: 15%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background: transparent;
 
-  Title {
-    text-align: center;
+  h1 {
+    margin-top: 10px;
+    background: none;
   }
   p {
     font-size: 1.5rem;
@@ -85,7 +93,37 @@ const ImageWrapper = styled.div`
 
   img {
     max-width: 100%;
-    object-fit: cover;
+
+    object-fit: contain;
+  }
+
+  @media ${({ theme }) => theme.device.tabletXlMax} {
+    width: 350px;
+    height: 350px;
+    right: 2%;
+    top: 15%;
+
+    h1 {
+      font-size: 2rem;
+    }
+    p {
+      font-size: 1.2rem;
+    }
+  }
+  @media ${({ theme }) => theme.device.tabletMax} {
+    width: 300px;
+    height: 300px;
+    position: relative;
+
+    h1 {
+      visibility: 0;
+      display: none;
+    }
+    p {
+      font-size: 1rem;
+      top: 32%;
+      left: 30px;
+    }
   }
 `;
 
