@@ -5,6 +5,7 @@ import { ThemeProvider } from "styled-components";
 const breakPoints = {
   mobile: "599.98px",
   tablet: "767.98px",
+  tabletXl: "1099.98px",
 };
 
 const theme = {
@@ -16,7 +17,8 @@ const theme = {
   device: {
     phoneMax: `(max-width: ${breakPoints.mobile})`,
     phoneMin: `(min-width: ${breakPoints.mobile})`,
-    tabletMax: `(max-wdith: ${breakPoints.tablet})`,
+    tabletMax: `(max-width: ${breakPoints.tablet})`,
+    tabletXlMax: `(max-width: ${breakPoints.tabletXl})`,
   },
 };
 
