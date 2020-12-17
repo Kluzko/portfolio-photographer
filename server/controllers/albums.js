@@ -1,5 +1,5 @@
-const Album = require("../models/album.model");
-const Image = require("../models/image.model");
+const Album = require("../models/Album");
+const Image = require("../models/Image");
 
 // @desc Get all albums
 // @route GET /api/v1/albums
