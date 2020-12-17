@@ -6,18 +6,22 @@ const AlbumSchema = new mongoose.Schema({
     required: [true, "Please add album name"],
     unique: true,
     trim: true,
-    maxlength: [20, "Name can not be more then 20 characters"],
+    maxlength: [30, "Name can not be more then 30 characters"],
   },
   slug: String,
-  // Array of images
-  backgroundImage: {
+  color: {
     type: String,
+    trim: true,
+  },
+  bckImgUrl: {
+    type: String,
+    trim: true,
     required: [true, "Please add a background picture for albums"],
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+    ref: "user",
   },
 });
 
-module.exports = mongoose.model("Album", AlbumSchema);
+module.exports = mongoose.model("album", AlbumSchema);

@@ -7,12 +7,12 @@ const ImageSchema = mongoose.Schema({
   },
   album: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Album",
+    ref: "album",
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+    ref: "user",
   },
 });
 
-module.exports = mongoose.model("Image", ImageSchema);
+module.exports = mongoose.model("image", ImageSchema);
