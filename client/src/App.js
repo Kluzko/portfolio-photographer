@@ -7,6 +7,7 @@ import Navbar from "./components/Navbar/Navbar.js";
 import Home from "./components/Home/Home";
 import AddAlbum from "./components/Album/AddAlbum";
 import Albums from "./components/Album/Albums";
+import Album from "./components/Album/Album";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route exact path="/" component={Home} />
         <Route path="/addAlbum" component={AddAlbum} />
         <Route path="/albums" component={Albums} />
+        <Route path="/albums/:id" component={Album} />
       </Theme>
     </Router>
   );
