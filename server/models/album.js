@@ -1,12 +1,12 @@
-import { Schema } from "mongoose";
+const mongoose = require("mongoose");
 
-const AlbumSchema = new Schema({
+const AlbumSchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, "Please add album name"],
     unique: true,
     trim: true,
-    maxlength: [30, "Name can not be more then 30 characters"],
+    maxlength: [20, "Name can not be more then 20 characters"],
   },
   slug: String,
   // Array of images
@@ -14,8 +14,10 @@ const AlbumSchema = new Schema({
     type: String,
     required: [true, "Please add a background picture for albums"],
   },
-  imageUrl: {
-    type: [String],
-    default: [],
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
   },
 });
+
+module.exports = mongoose.model("Album", AlbumSchema);

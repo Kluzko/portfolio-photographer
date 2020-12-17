@@ -1,8 +1,8 @@
-import express from "express";
-import { config } from "dotenv";
-import morgan from "morgan";
-import colors from "colors";
-import connectDB from "./config/db";
+const express = require("express");
+const { config } = require("dotenv");
+const morgan = require("morgan");
+const colors = require("colors");
+const connectDB = require("./config/db");
 
 // Load env vars
 config({ path: "./config/config.env" });
@@ -11,7 +11,7 @@ config({ path: "./config/config.env" });
 connectDB();
 
 // Route files
-import albums from "./routes/albums";
+const albums = require("./routes/albums");
 
 const app = express();
 
