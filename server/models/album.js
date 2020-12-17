@@ -18,6 +18,10 @@ const AlbumSchema = new mongoose.Schema({
     trim: true,
     required: [true, "Please add a background picture for albums"],
   },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "user",

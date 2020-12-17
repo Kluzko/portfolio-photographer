@@ -5,16 +5,32 @@ const Image = require("../models/Image");
 // @route GET /api/v1/albums
 // @access Public
 
-exports.getAlbums = (req, res, next) => {
-  res.status(200).json({ success: true, msg: "Show all albums" });
+exports.getAlbums = async (req, res, next) => {
+  try {
+    const albums = await Album.find();
+
+    res.status(200).json({ success: true, count: albums.length, data: albums });
+  } catch (err) {
+    res.status(400).json({ success: false });
+  }
 };
 
 // @desc Get single album and display photos
 // @route GET /api/v1/albums/:id
 // @access Public
 
-exports.getAlbum = (req, res, next) => {
-  res.status(200).json({ success: true, msg: `Get album ${req.params.id}` });
+exports.getAlbum = async (req, res, next) => {
+  try {
+    const album = await Album.findById(req.params.id);
+
+    if (!album) {
+      return res.status(400).json({ success: false });
+    }
+
+    res.status(200).json({ success: true, data: album });
+  } catch (err) {
+    res.status(400).json({ success: false });
+  }
 };
 
 // @desc Create new album
@@ -22,26 +38,49 @@ exports.getAlbum = (req, res, next) => {
 // @access Private
 
 exports.createAlbum = async (req, res, next) => {
-  const album = await Album.create(req.body);
+  try {
+    const album = await Album.create(req.body);
 
-  res.status(201).json({
-    success: true,
-    data: album,
-  });
+    res.status(201).json({
+      success: true,
+      data: album,
+    });
+  } catch (err) {
+    res.status(400).json({ success: false });
+  }
 };
 
 // @desc Update  album
 // @route PUT /api/v1/albums/:id
 // @access Private
 
-exports.updateAlbum = (req, res, next) => {
-  res.status(200).json({ success: true, msg: `Update album ${req.params.id}` });
+exports.updateAlbum = async (req, res, next) => {
+  try {
+    const album = await Album.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
+    });
+    if (!album) {
+      return res.status(400).json({ success: false });
+    }
+    res.status(200).json({ success: true, data: album });
+  } catch (err) {
+    res.status(400).json({ success: false });
+  }
 };
 
 // @desc Delete  album
 // @route DELETE /api/v1/albums/:id
 // @access Private
 
-exports.deleteAlbum = (req, res, next) => {
-  res.status(200).json({ success: true, msg: `Delete album ${req.params.id}` });
+exports.deleteAlbum = async (req, res, next) => {
+  try {
+    const album = await Album.findByIdAndDelete(req.params.id);
+    if (!album) {
+      return res.status(400).json({ success: false });
+    }
+    res.status(200).json({ success: true, data: {} });
+  } catch (err) {
+    res.status(400).json({ success: false });
+  }
 };
