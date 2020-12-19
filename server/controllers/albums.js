@@ -1,4 +1,5 @@
 const ErrorResponse = require("../utils/errorResponse");
+const asyncHandler = require("../middleware/async");
 const Album = require("../models/Album");
 const Image = require("../models/Image");
 
@@ -6,88 +7,68 @@ const Image = require("../models/Image");
 // @route GET /api/v1/albums
 // @access Public
 
-exports.getAlbums = async (req, res, next) => {
-  try {
-    const albums = await Album.find();
+exports.getAlbums = asyncHandler(async (req, res, next) => {
+  const albums = await Album.find();
 
-    res.status(200).json({ success: true, count: albums.length, data: albums });
-  } catch (err) {
-    next(err);
-  }
-};
+  res.status(200).json({ success: true, count: albums.length, data: albums });
+});
 
 // @desc Get single album and display photos
 // @route GET /api/v1/albums/:id
 // @access Public
 
-exports.getAlbum = async (req, res, next) => {
-  try {
-    const album = await Album.findById(req.params.id);
+exports.getAlbum = asyncHandler(async (req, res, next) => {
+  const album = await Album.findById(req.params.id);
 
-    if (!album) {
-      return next(
-        new ErrorResponse(`Album not found with id of ${req.params.id}`, 404)
-      );
-    }
-
-    res.status(200).json({ success: true, data: album });
-  } catch (err) {
-    next(err);
+  if (!album) {
+    return next(
+      new ErrorResponse(`Album not found with id of ${req.params.id}`, 404)
+    );
   }
-};
+
+  res.status(200).json({ success: true, data: album });
+});
 
 // @desc Create new album
 // @route POST /api/v1/albums
 // @access Private
 
-exports.createAlbum = async (req, res, next) => {
-  try {
-    const album = await Album.create(req.body);
+exports.createAlbum = asyncHandler(async (req, res, next) => {
+  const album = await Album.create(req.body);
 
-    res.status(201).json({
-      success: true,
-      data: album,
-    });
-  } catch (err) {
-    next(err);
-  }
-};
+  res.status(201).json({
+    success: true,
+    data: album,
+  });
+});
 
 // @desc Update  album
 // @route PUT /api/v1/albums/:id
 // @access Private
 
-exports.updateAlbum = async (req, res, next) => {
-  try {
-    const album = await Album.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-      runValidators: true,
-    });
-    if (!album) {
-      return next(
-        new ErrorResponse(`Album not found with id of ${req.params.id}`, 404)
-      );
-    }
-    res.status(200).json({ success: true, data: album });
-  } catch (err) {
-    next(err);
+exports.updateAlbum = asyncHandler(async (req, res, next) => {
+  const album = await Album.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true,
+  });
+  if (!album) {
+    return next(
+      new ErrorResponse(`Album not found with id of ${req.params.id}`, 404)
+    );
   }
-};
+  res.status(200).json({ success: true, data: album });
+});
 
 // @desc Delete  album
 // @route DELETE /api/v1/albums/:id
 // @access Private
 
-exports.deleteAlbum = async (req, res, next) => {
-  try {
-    const album = await Album.findByIdAndDelete(req.params.id);
-    if (!album) {
-      return next(
-        new ErrorResponse(`Album not found with id of ${req.params.id}`, 404)
-      );
-    }
-    res.status(200).json({ success: true, data: {} });
-  } catch (err) {
-    next(err);
+exports.deleteAlbum = asyncHandler(async (req, res, next) => {
+  const album = await Album.findByIdAndDelete(req.params.id);
+  if (!album) {
+    return next(
+      new ErrorResponse(`Album not found with id of ${req.params.id}`, 404)
+    );
   }
-};
+  res.status(200).json({ success: true, data: {} });
+});
