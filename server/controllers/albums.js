@@ -1,3 +1,4 @@
+const ErrorResponse = require("../utils/errorResponse");
 const Album = require("../models/Album");
 const Image = require("../models/Image");
 
@@ -11,7 +12,7 @@ exports.getAlbums = async (req, res, next) => {
 
     res.status(200).json({ success: true, count: albums.length, data: albums });
   } catch (err) {
-    res.status(400).json({ success: false });
+    next(err);
   }
 };
 
@@ -24,12 +25,14 @@ exports.getAlbum = async (req, res, next) => {
     const album = await Album.findById(req.params.id);
 
     if (!album) {
-      return res.status(400).json({ success: false });
+      return next(
+        new ErrorResponse(`Album not found with id of ${req.params.id}`, 404)
+      );
     }
 
     res.status(200).json({ success: true, data: album });
   } catch (err) {
-    res.status(400).json({ success: false });
+    next(err);
   }
 };
 
@@ -46,7 +49,7 @@ exports.createAlbum = async (req, res, next) => {
       data: album,
     });
   } catch (err) {
-    res.status(400).json({ success: false });
+    next(err);
   }
 };
 
@@ -61,11 +64,13 @@ exports.updateAlbum = async (req, res, next) => {
       runValidators: true,
     });
     if (!album) {
-      return res.status(400).json({ success: false });
+      return next(
+        new ErrorResponse(`Album not found with id of ${req.params.id}`, 404)
+      );
     }
     res.status(200).json({ success: true, data: album });
   } catch (err) {
-    res.status(400).json({ success: false });
+    next(err);
   }
 };
 
@@ -77,10 +82,12 @@ exports.deleteAlbum = async (req, res, next) => {
   try {
     const album = await Album.findByIdAndDelete(req.params.id);
     if (!album) {
-      return res.status(400).json({ success: false });
+      return next(
+        new ErrorResponse(`Album not found with id of ${req.params.id}`, 404)
+      );
     }
     res.status(200).json({ success: true, data: {} });
   } catch (err) {
-    res.status(400).json({ success: false });
+    next(err);
   }
 };
