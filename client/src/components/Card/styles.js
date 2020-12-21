@@ -25,7 +25,8 @@ const Card = styled.div`
 
 const AlbumtTitle = styled.p`
   color: ${({ color }) => (color ? color : "#000000")};
-  font-size: 1.8rem;
+  font-size: 1.6rem;
+  font-weight: bold;
   background: transparent;
   position: absolute;
   top: 20px;
@@ -44,4 +45,28 @@ const LinkButton = styled(Link)`
   left: 40px;
 `;
 
-export { Card, Wrapper, AlbumtTitle, LinkButton };
+const IconWrapper = styled.div`
+  background: white;
+  width: 70px;
+  height: 40px;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  display: flex;
+  font-size: 20px;
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background: transparent;
+    height: 100%;
+    width: 50%;
+    &:hover {
+      background: black;
+      color: white;
+    }
+  }
+`;
+
+export { Card, Wrapper, AlbumtTitle, LinkButton, IconWrapper };

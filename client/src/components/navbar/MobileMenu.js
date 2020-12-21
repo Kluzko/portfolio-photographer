@@ -1,8 +1,8 @@
 import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import BurgerIcon from "./BurgerIcon";
-// import useOnclickOutside from "react-cool-onclickoutside";
-import { useOutsideClick } from "../../hooks";
+
+import { useLinkClick } from "../../hooks/useLinkClik";
 
 import MenuLinks from "./MenuLinks";
 
@@ -61,7 +61,7 @@ const MobileMenu = () => {
 
   const ref = useRef();
   // on link click change open to false
-  useOutsideClick(ref, () => {
+  useLinkClick(ref, () => {
     if (open) setOpen(false);
   });
 

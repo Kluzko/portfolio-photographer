@@ -13,6 +13,7 @@ const theme = {
     background: "#E5E5E5",
     primary: "#007CB3",
     primaryHover: "#0039b3",
+    error: "#ED4337",
   },
   device: {
     phoneMax: `(max-width: ${breakPoints.mobile})`,
