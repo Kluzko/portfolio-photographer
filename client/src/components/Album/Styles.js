@@ -1,15 +1,5 @@
 import styled, { css } from "styled-components";
 
-const Wrapper = styled.div`
-  margin-top: 5%;
-  margin-left: 10%;
-
-  @media ${({ theme }) => theme.device.phoneMax} {
-    margin-top: 10%;
-    margin-left: 20%;
-  }
-`;
-
 const Title = styled.h1`
   color: #705b5b;
   font-size: 2.5rem;
@@ -128,7 +118,6 @@ const ImageWrapper = styled.div`
 `;
 
 export {
-  Wrapper,
   Title,
   DefaultInput,
   StyledLabel,

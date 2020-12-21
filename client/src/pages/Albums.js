@@ -1,15 +1,11 @@
 import React from "react";
-import { SERVER_API } from "../config";
-import { useQuery } from "react-query";
 import Loader from "../components/Loader";
 import CardWithEdit from "../components/Card/CardWithEdit";
 import ErrorMessage from "../components/ErrorMessage";
 import { CartWrapper } from "../components/Wrappers";
-
+import useDataFetch from "../hooks/useDataFetch";
 const Albums = () => {
-  const { isLoading, error, data } = useQuery("fetchAlbums", () =>
-    fetch(`${SERVER_API}/api/v1/albums`).then((res) => res.json())
-  );
+  const { isLoading, error, data } = useDataFetch("albums", "FetchAlbums");
 
   if (isLoading) return <Loader />;
 

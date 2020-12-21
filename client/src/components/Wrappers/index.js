@@ -9,3 +9,13 @@ export const CartWrapper = styled.div`
   justify-items: center;
   grid-gap: 30px;
 `;
+
+export const FormWrapper = styled.div`
+  margin-top: 5%;
+  margin-left: 10%;
+
+  @media ${({ theme }) => theme.device.phoneMax} {
+    margin-top: 10%;
+    margin-left: 20%;
+  }
+`;

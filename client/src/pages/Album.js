@@ -1,15 +1,13 @@
 import React from "react";
-import { useQuery } from "react-query";
+import useDataFetch from "../hooks/useDataFetch";
 import Loader from "../components/Loader";
 import ErrorMessage from "../components/ErrorMessage";
-import { SERVER_API } from "../config";
+
 import { useParams } from "react-router-dom";
 
 const Album = () => {
   let { id } = useParams();
-  const { isLoading, error, data } = useQuery("fetchAlbum", () =>
-    fetch(`${SERVER_API}/api/v1/albums/${id}`).then((res) => res.json())
-  );
+  const { isLoading, error, data } = useDataFetch(`albums/${id}`, "fetchAlbum");
 
   if (isLoading) return <Loader />;
 

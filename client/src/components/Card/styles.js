@@ -62,6 +62,10 @@ const IconWrapper = styled.div`
     background: transparent;
     height: 100%;
     width: 50%;
+    transition: all 0.3s ease-in-out;
+    &:first-child {
+      border-right: 2px solid ${({ theme }) => theme.colors.primary};
+    }
     &:hover {
       background: black;
       color: white;

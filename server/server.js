@@ -20,6 +20,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.disable("etag");
 
 // Dev logging middleware
 if (process.env.NODE_ENV === "development") {

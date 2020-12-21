@@ -6,7 +6,7 @@ import GlobalStyle from "./globalStyles";
 // Components
 import Navbar from "./components/Navbar/Navbar.js";
 import Home from "./pages/Home";
-import AddAlbum from "./components/Album/AddAlbum";
+import AddAlbum from "./pages/AddAlbum";
 import Albums from "./pages/Albums";
 import Album from "./pages/Album";
 
