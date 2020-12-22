@@ -11,11 +11,12 @@ width:100%;
 const Logo = styled.div`
   margin-top:1em;
   margin-left:3em;  
+  z-index:100;
   p{
     font-weight:bold;
     font-size:1.4rem;
     color: ${({theme}) => theme.primary};
-    z-index:100;
+   
   }
 `
 
