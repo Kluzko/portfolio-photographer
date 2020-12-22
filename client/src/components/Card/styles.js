@@ -54,6 +54,7 @@ const IconWrapper = styled.div`
   right: 10px;
   display: flex;
   font-size: 20px;
+  border: 2px solid ${({ theme }) => theme.colors.primary};
   div {
     display: flex;
     align-items: center;

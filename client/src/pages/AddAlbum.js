@@ -7,6 +7,9 @@ import Form from "../components/Forms/Form";
 import { FormWrapper } from "../components/Wrappers";
 // Styles
 import { Title, ErrorMsg, ImageWrapper } from "../components/Album/Styles";
+// Max file size in Bytes
+// 8 MB
+const maxSize = 8388608;
 
 const AddAlbum = () => {
   const [Loading, setLoading] = useState(false);
@@ -42,6 +45,7 @@ const AddAlbum = () => {
           setFile={setFile}
           setPreviewSrc={setPreviewSrc}
           setIsPreviewAvailable={setIsPreviewAvailable}
+          maxFileSize={maxSize}
         />
 
         {previewSrc && isPreviewAvailable && (

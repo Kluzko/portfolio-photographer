@@ -5,7 +5,6 @@ import { ErrorMsg, Center } from "./styles";
 const ErrorMessage = ({ children, font }) => {
   return (
     <Center>
-      <h3>Something went wrong</h3>
       <ErrorMsg font={font}>{children}</ErrorMsg>
     </Center>
   );
