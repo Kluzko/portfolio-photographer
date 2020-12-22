@@ -19,3 +19,12 @@ export const FormWrapper = styled.div`
     margin-left: 20%;
   }
 `;
+
+export const ButtonWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: black;
+  padding-top: 20px;
+`;

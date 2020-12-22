@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
 import { Card, AlbumtTitle, LinkButton, IconWrapper } from "./styles";
+
+import { Dialog } from "../Dialog";
+
 const CardWithEdit = ({
   width,
   height,
@@ -12,6 +15,9 @@ const CardWithEdit = ({
   link,
   editLink,
 }) => {
+  const [state, setState] = useState(false);
+  const handleClick = () => setState(!state);
+
   return (
     <Card width={width} height={height} bckImg={bckImg}>
       <AlbumtTitle color={color}>{children}</AlbumtTitle>
@@ -24,7 +30,7 @@ const CardWithEdit = ({
             <AiOutlineEdit />
           </Link>
         </div>
-        <div>
+        <div onClick={handleClick}>
           <AiOutlineDelete
             style={{
               cursor: "pointer",
@@ -32,6 +38,7 @@ const CardWithEdit = ({
           />
         </div>
       </IconWrapper>
+      {state && <Dialog handleClick={handleClick} />}
     </Card>
   );
 };
