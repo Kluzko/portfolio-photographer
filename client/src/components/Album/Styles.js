@@ -56,8 +56,8 @@ const StyledButton = styled.button`
 
 // Add breakpoints for bigger displays
 const ImageWrapper = styled.div`
-  width: 500px;
-  height: 500px;
+  width: 400px;
+  height: 400px;
   position: absolute;
   top: 10%;
   right: 15%;

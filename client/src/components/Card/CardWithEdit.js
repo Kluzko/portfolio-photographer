@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
 import { Card, AlbumtTitle, LinkButton, IconWrapper } from "./styles";
-
 import { Dialog } from "../Dialog";
 
 const CardWithEdit = ({
@@ -14,9 +13,17 @@ const CardWithEdit = ({
   children,
   link,
   editLink,
+  id,
 }) => {
   const [state, setState] = useState(false);
   const handleClick = () => setState(!state);
+
+  const handleDelete = async () => {
+    await fetch(`http://localhost:5000/api/v1/albums/${id}`, {
+      method: "DELETE",
+    });
+    handleClick();
+  };
 
   return (
     <Card width={width} height={height} bckImg={bckImg}>
@@ -38,7 +45,13 @@ const CardWithEdit = ({
           />
         </div>
       </IconWrapper>
-      {state && <Dialog handleClick={handleClick} />}
+      {state && (
+        <Dialog
+          handleClick={handleClick}
+          handleDelete={handleDelete}
+          deleteText={"Delete"}
+        />
+      )}
     </Card>
   );
 };

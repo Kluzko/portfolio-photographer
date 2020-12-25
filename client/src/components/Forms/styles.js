@@ -7,7 +7,7 @@ export const Dropzone = styled.div`
   border: ${({ isDragActive }) =>
     isDragActive ? "2px solid purple" : "2px dashed salmon"};
   display: flex;
-  width: 11rem;
+  width: 13rem;
   justify-content: center;
   align-items: center;
   font-size: 0.9rem;

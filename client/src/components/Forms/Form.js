@@ -1,6 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import { UPLOAD_PRESET, CLOUD_NAME, SERVER_API } from "../../config";
+import useHasUnmountedRef from "../../hooks/useHasUnmountedRef";
 
 const uploadImage = async (file) => {
   const url = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/upload`;
@@ -40,6 +41,7 @@ const createAlbum = async (data) => {
 
 const Form = ({ file, loading, setError, album, color, children }) => {
   let history = useHistory();
+  const hasUnmountedRef = useHasUnmountedRef();
 
   const clearError = () => setError("");
 
@@ -51,13 +53,17 @@ const Form = ({ file, loading, setError, album, color, children }) => {
         throw new Error("Please select a file to add.");
       }
 
-      if (!album.trim() || !color.trim()) {
+      if (!album.trim("") || !color.trim()) {
         throw new Error("Please enter all the field values.");
       }
 
       loading(true);
 
       const fileUrl = await uploadImage(file);
+      if (hasUnmountedRef.current) {
+        // escape early because component has unmounted
+        return;
+      }
 
       const data = {
         name: album,
@@ -66,6 +72,11 @@ const Form = ({ file, loading, setError, album, color, children }) => {
       };
 
       const albumId = await createAlbum(data);
+
+      if (hasUnmountedRef.current) {
+        // escape early because component has unmounted
+        return;
+      }
 
       history.push(`/albums/${albumId}`);
     } catch (error) {

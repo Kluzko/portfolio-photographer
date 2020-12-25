@@ -1,16 +1,13 @@
 import React from "react";
 import { useDropzone } from "react-dropzone";
 import { Dropzone, DefaultInput, StyledLabel } from "./styles";
-import useFormatToMb from "../../hooks/useFormatToMb";
 import { ErrorMsg } from "../ErrorMessage/styles";
 
 //Image preview setter and file setter
-const ImageInput = ({
-  setFile,
-  setPreviewSrc,
-  setIsPreviewAvailable,
-  maxFileSize,
-}) => {
+const maxFileSize = 8388608;
+const minFileSize = 0;
+
+const ImageInput = ({ setFile, setPreviewSrc, setIsPreviewAvailable }) => {
   const onDrop = (files) => {
     const [uploadedFile] = files;
     setFile(uploadedFile);
@@ -32,21 +29,20 @@ const ImageInput = ({
     fileRejections,
   } = useDropzone({
     onDrop,
-    accept: "image/png, image/png, image/jpg",
+    accept: "image/png, image/jpeg, image/jpg",
     multiple: false,
     maxSize: maxFileSize,
+    minSize: minFileSize,
   });
-
-  // Format maxFileSize from byts to Mb
-
-  const converted = useFormatToMb(maxFileSize);
 
   return (
     <div>
       <StyledLabel>Upload background image</StyledLabel>
       <Dropzone {...getRootProps()} isDragActive={isDragActive}>
         {fileRejections.length > 0 ? (
-          <ErrorMsg font="1rem">Max file size is {converted} MB</ErrorMsg>
+          <ErrorMsg font="0.9rem">
+            {fileRejections[0].errors[0].message}
+          </ErrorMsg>
         ) : (
           `Select file`
         )}{" "}

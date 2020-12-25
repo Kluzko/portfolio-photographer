@@ -9,12 +9,11 @@ import { FormWrapper } from "../components/Wrappers";
 import { Title, ErrorMsg, ImageWrapper } from "../components/Album/Styles";
 // Max file size in Bytes
 // 8 MB
-const maxSize = 8388608;
 
 const AddAlbum = () => {
   const [Loading, setLoading] = useState(false);
   // Album name
-  const [albumName, setAlubmName] = useState();
+  const [albumName, setAlubmName] = useState("");
   // Album title text color
   const [color, setColor] = useState();
 
@@ -45,7 +44,7 @@ const AddAlbum = () => {
           setFile={setFile}
           setPreviewSrc={setPreviewSrc}
           setIsPreviewAvailable={setIsPreviewAvailable}
-          maxFileSize={maxSize}
+          file
         />
 
         {previewSrc && isPreviewAvailable && (

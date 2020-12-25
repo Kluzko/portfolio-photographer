@@ -1,18 +1,28 @@
 import React from "react";
-import useDataFetch from "../hooks/useDataFetch";
 import Loader from "../components/Loader";
 import ErrorMessage from "../components/ErrorMessage";
-
+import { apiStates, useApi } from "../hooks/useApi";
 import { useParams } from "react-router-dom";
 
 const Album = () => {
   let { id } = useParams();
-  const { isLoading, error, data } = useDataFetch(`albums/${id}`, "fetchAlbum");
+  const { state, data, error } = useApi(
+    `http://localhost:5000/api/v1/albums/${id}`
+  );
 
-  if (isLoading) return <Loader />;
-
-  if (error) return <ErrorMessage font="1.5rem">{error.message}</ErrorMessage>;
-  return <div>{data.data.name}</div>;
+  switch (state) {
+    case apiStates.ERROR:
+      return <ErrorMessage>{error || "General Error"}</ErrorMessage>;
+    case apiStates.SUCCESS:
+      return (
+        <div>
+          <p>{data.data.name}</p>
+          <p>{data.data.createdAt}</p>
+        </div>
+      );
+    default:
+      return <Loader />;
+  }
 };
 
 export default Album;
