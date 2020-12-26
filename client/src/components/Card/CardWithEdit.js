@@ -14,14 +14,18 @@ const CardWithEdit = ({
   link,
   editLink,
   id,
+  deleteId,
 }) => {
   const [state, setState] = useState(false);
   const handleClick = () => setState(!state);
 
   const handleDelete = async () => {
-    await fetch(`http://localhost:5000/api/v1/albums/${id}`, {
+    const res = await fetch(`http://localhost:5000/api/v1/albums/${id}`, {
       method: "DELETE",
     });
+    //to refetch on delete
+    const data = await res.json();
+    deleteId(data._id);
     handleClick();
   };
 

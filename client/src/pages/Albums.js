@@ -5,11 +5,11 @@ import ErrorMessage from "../components/ErrorMessage";
 import { CartWrapper } from "../components/Wrappers";
 import { apiStates, useApi } from "../hooks/useApi";
 const Albums = () => {
-  const { state, error, data } = useApi("http://localhost:5000/api/v1/albums");
+  const {
+    data: { state, error, data },
+    setDeleteID,
+  } = useApi("http://localhost:5000/api/v1/albums");
 
-  // if (isLoading) return <Loader />;
-
-  // if (error) return <ErrorMessage font="1.5rem">{error.message}</ErrorMessage>;
   const albums = data.data;
   switch (state) {
     case apiStates.ERROR:
@@ -28,6 +28,7 @@ const Albums = () => {
                 link={`/albums/${album._id}`}
                 editLink={`edit/${album._id}`}
                 id={album._id}
+                deleteId={setDeleteID}
               >
                 {album.name}
               </CardWithEdit>
