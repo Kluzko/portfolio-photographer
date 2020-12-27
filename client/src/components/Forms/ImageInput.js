@@ -2,7 +2,7 @@ import React from "react";
 import { useDropzone } from "react-dropzone";
 import { Dropzone, DefaultInput, StyledLabel } from "./styles";
 import { ErrorMsg } from "../ErrorMessage/styles";
-
+import PropTypes from "prop-types";
 //Image preview setter and file setter
 const maxFileSize = 8388608;
 const minFileSize = 0;
@@ -50,6 +50,12 @@ const ImageInput = ({ setFile, setPreviewSrc, setIsPreviewAvailable }) => {
       </Dropzone>
     </div>
   );
+};
+
+ImageInput.propTypes = {
+  setFile: PropTypes.func.isRequired,
+  setPreviewSrc: PropTypes.func.isRequired,
+  setIsPreviewAvailable: PropTypes.func.isRequired,
 };
 
 export default ImageInput;

@@ -6,9 +6,9 @@ import { useParams } from "react-router-dom";
 
 const Album = () => {
   let { id } = useParams();
-  const { state, data, error } = useApi(
-    `http://localhost:5000/api/v1/albums/${id}`
-  );
+  const {
+    data: { state, data, error },
+  } = useApi(`http://localhost:5000/api/v1/albums/${id}`);
 
   switch (state) {
     case apiStates.ERROR:

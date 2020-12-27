@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 export const apiStates = {
   LOADING: "LOADING",
@@ -14,7 +14,7 @@ export const useApi = (url) => {
   });
 
   const setPartData = (partialData) => setData({ ...data, ...partialData });
-  const [deleteID, setDeleteID] = useState(null);
+  const [refetch, setRefetch] = useState(null);
 
   useEffect(() => {
     setPartData({
@@ -34,7 +34,9 @@ export const useApi = (url) => {
           error: "fetch failed",
         });
       });
-  }, [deleteID]);
 
-  return { data, setDeleteID };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [refetch]);
+
+  return { data, setRefetch };
 };

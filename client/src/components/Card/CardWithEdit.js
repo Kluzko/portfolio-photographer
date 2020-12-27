@@ -65,7 +65,7 @@ CardWithEdit.propTypes = {
   height: PropTypes.string,
   bckImg: PropTypes.string.isRequired,
   color: PropTypes.string,
-  children: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
   link: PropTypes.string.isRequired,
   editLink: PropTypes.string.isRequired,
 };

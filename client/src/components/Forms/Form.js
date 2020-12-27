@@ -1,5 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
+import PropTypes from "prop-types";
 import { UPLOAD_PRESET, CLOUD_NAME, SERVER_API } from "../../config";
 import useHasUnmountedRef from "../../hooks/useHasUnmountedRef";
 
@@ -22,9 +23,9 @@ const uploadImage = async (file) => {
   return await data.eager[0].secure_url;
 };
 
-const createAlbum = async (data) => {
-  const res = await fetch(`${SERVER_API}/api/v1/albums`, {
-    method: "POST",
+const createAlbum = async (data, method, url) => {
+  const res = await fetch(`${SERVER_API}/api/v1/albums${url}`, {
+    method,
     body: JSON.stringify(data),
     headers: {
       "Content-Type": "application/json",
@@ -39,7 +40,16 @@ const createAlbum = async (data) => {
   return json.data._id;
 };
 
-const Form = ({ file, loading, setError, album, color, children }) => {
+const Form = ({
+  file,
+  loading,
+  setError,
+  album,
+  color,
+  children,
+  method, //Method POST OR PUT
+  url, //URL FOR PUT OR POST SINGLE OR MULTIPLE ALBUMS
+}) => {
   let history = useHistory();
   const hasUnmountedRef = useHasUnmountedRef();
 
@@ -71,14 +81,17 @@ const Form = ({ file, loading, setError, album, color, children }) => {
         color: color,
       };
 
-      const albumId = await createAlbum(data);
+      const albumId = await createAlbum(data, method, url);
 
       if (hasUnmountedRef.current) {
         // escape early because component has unmounted
         return;
       }
-
-      history.push(`/albums/${albumId}`);
+      if (method === "PUT") {
+        history.push(`/albums`);
+      } else {
+        history.push(`/albums/${albumId}`);
+      }
     } catch (error) {
       setError(error.message);
     } finally {
@@ -86,6 +99,17 @@ const Form = ({ file, loading, setError, album, color, children }) => {
     }
   };
   return <form onSubmit={handleSubmit}>{children}</form>;
+};
+
+Form.propTypes = {
+  file: PropTypes.string,
+  loading: PropTypes.func,
+  setError: PropTypes.func,
+  album: PropTypes.string.isRequired,
+  color: PropTypes.string,
+  children: PropTypes.node.isRequired,
+  method: PropTypes.oneOf(["PUT", "POST"]).isRequired,
+  url: PropTypes.string,
 };
 
 export default Form;
