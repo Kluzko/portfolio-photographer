@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-import { apiStates, useApi } from "../hooks/useApi";
+
 import ImageInput from "../components/Forms/ImageInput";
 import ColorInput from "../components/Forms/ColorInput";
 import AlbumName from "../components/Forms/TextInput";
@@ -10,17 +10,13 @@ import { FormWrapper } from "../components/Wrappers";
 
 // Styles
 import { Title, ErrorMsg, ImageWrapper } from "../components/Album/Styles";
-import Loader from "../components/Loader";
+
 // Max file size in Bytes
 // 8 MB
 
 const EditAlbum = () => {
   let { id } = useParams();
   // fetch data to show info before its updated
-  const {
-    data: { state, data, error },
-  } = useApi(`http://localhost:5000/api/v1/albums/${id}`);
-  const album = data.data;
 
   const [Loading, setLoading] = useState(false);
   // Album name
@@ -33,14 +29,20 @@ const EditAlbum = () => {
   const [errorMsg, setErrorMsg] = useState("");
   const [isPreviewAvailable, setIsPreviewAvailable] = useState(false); // state to show
 
-  if (state === apiStates.LOADING) {
-    return <Loader />;
-  }
-  if (state === apiStates.ERROR) {
-    return <ErrorMsg>{error}</ErrorMsg>;
-  }
-
-  console.log(album.name);
+  React.useEffect(() => {
+    async function fetchAlbum() {
+      const res = await fetch(`http://localhost:5000/api/v1/albums/${id}`);
+      const data = await res.json();
+      const album = data.data;
+      if (data) {
+        setColor(album.color);
+        setAlubmName(album.name);
+        setPreviewSrc(album.bckImgUrl);
+        setIsPreviewAvailable(true);
+      }
+    }
+    fetchAlbum();
+  }, [id]);
 
   return (
     <FormWrapper>
@@ -58,6 +60,7 @@ const EditAlbum = () => {
           setValue={setAlubmName}
           width="250px"
           placeholder={"Trip to Ny ...."}
+          value={albumName}
         >
           Enter Album Name
         </AlbumName>

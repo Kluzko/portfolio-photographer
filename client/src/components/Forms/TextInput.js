@@ -1,7 +1,7 @@
 import React from "react";
 import { DefaultInput, StyledLabel } from "./styles";
 import PropTypes from "prop-types";
-const TextInput = ({ setValue, width, children, placeholder }) => {
+const TextInput = ({ setValue, width, children, placeholder, value }) => {
   return (
     <div>
       <StyledLabel>{children}</StyledLabel>
@@ -10,6 +10,7 @@ const TextInput = ({ setValue, width, children, placeholder }) => {
         placeholder={placeholder || "Enter value"}
         width={width}
         onChange={(e) => setValue(e.target.value)}
+        value={value}
       />
     </div>
   );
@@ -20,6 +21,7 @@ TextInput.propTypes = {
   width: PropTypes.string,
   children: PropTypes.node.isRequired,
   placeholder: PropTypes.string,
+  value: PropTypes.string,
 };
 
 export default TextInput;
