@@ -28,7 +28,7 @@ const EditAlbum = () => {
   const [previewSrc, setPreviewSrc] = useState(""); // state for storing previewImage
   const [errorMsg, setErrorMsg] = useState("");
   const [isPreviewAvailable, setIsPreviewAvailable] = useState(false); // state to show
-
+  let actualFile = React.useRef("");
   React.useEffect(() => {
     async function fetchAlbum() {
       const res = await fetch(`http://localhost:5000/api/v1/albums/${id}`);
@@ -38,7 +38,9 @@ const EditAlbum = () => {
         setColor(album.color);
         setAlubmName(album.name);
         setPreviewSrc(album.bckImgUrl);
+        actualFile.current = album.bckImgUrl;
         setIsPreviewAvailable(true);
+        setFile(album.bckImgUrl);
       }
     }
     fetchAlbum();
@@ -47,6 +49,7 @@ const EditAlbum = () => {
   return (
     <FormWrapper>
       <Title>Add Album</Title>
+
       <Form
         file={file}
         loading={setLoading}
@@ -55,6 +58,7 @@ const EditAlbum = () => {
         color={color}
         method="PUT"
         url={`/${id}`}
+        actualFile={actualFile.current}
       >
         <AlbumName
           setValue={setAlubmName}

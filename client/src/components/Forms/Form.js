@@ -49,6 +49,7 @@ const Form = ({
   children,
   method, //Method POST OR PUT
   url, //URL FOR PUT OR POST SINGLE OR MULTIPLE ALBUMS
+  actualFile, // when You edit album and dont change file its doesnt reupload file
 }) => {
   let history = useHistory();
   const hasUnmountedRef = useHasUnmountedRef();
@@ -66,18 +67,18 @@ const Form = ({
       if (!album.trim("") || !color.trim()) {
         throw new Error("Please enter all the field values.");
       }
-
+      let fileUrl = file;
       loading(true);
-
-      const fileUrl = await uploadImage(file);
+      if (actualFile !== file) {
+        fileUrl = await uploadImage(file);
+      }
       if (hasUnmountedRef.current) {
         // escape early because component has unmounted
         return;
       }
-
       const data = {
         name: album,
-        bckImgUrl: fileUrl,
+        bckImgUrl: fileUrl || file,
         color: color,
       };
 
@@ -102,7 +103,7 @@ const Form = ({
 };
 
 Form.propTypes = {
-  file: PropTypes.string,
+  file: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   loading: PropTypes.func,
   setError: PropTypes.func,
   album: PropTypes.string.isRequired,
