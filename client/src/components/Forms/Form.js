@@ -24,7 +24,7 @@ const uploadImage = async (file) => {
 };
 
 const createAlbum = async (data, method, url) => {
-  const res = await fetch(`${SERVER_API}/api/v1/albums${url}`, {
+  const res = await fetch(`${SERVER_API}/api/v1/albums${url ? url : ""}`, {
     method,
     body: JSON.stringify(data),
     headers: {
