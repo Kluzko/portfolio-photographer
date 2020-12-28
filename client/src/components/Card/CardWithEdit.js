@@ -25,7 +25,8 @@ const CardWithEdit = ({
     });
     //to refetch on delete
     const data = await res.json();
-    deleteId(data._id);
+
+    deleteId(data.data);
     handleClick();
   };
 

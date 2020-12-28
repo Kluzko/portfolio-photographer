@@ -38,7 +38,7 @@ const LinkButton = styled(Link)`
   border: 1px solid transparent;
   border-radius: 24px;
   font-weight: bold;
-  background: ${({ background }) => background};
+  background: ${({ background }) => background || "black"};
   position: absolute;
   top: 70px;
   padding: 8px 15px;
