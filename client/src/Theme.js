@@ -21,6 +21,7 @@ const theme = {
     phoneMin: `(min-width: ${breakPoints.mobile})`,
     tabletMax: `(max-width: ${breakPoints.tablet})`,
     tabletXlMax: `(max-width: ${breakPoints.tabletXl})`,
+    tabletXlMin: `(min-width: ${breakPoints.tabletXl})`,
     laptopMax: `(max-width: ${breakPoints.laptop})`,
   },
 };

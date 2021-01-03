@@ -7,6 +7,7 @@ import { useLinkClick } from "../../hooks/useLinkClik";
 import MenuLinks from "./MenuLinks";
 
 const MobileMenuWrapper = styled.nav`
+  position: relative;
   @media ${({ theme }) => theme.device.phoneMin} {
     visibility: 0;
     display: none;
@@ -15,19 +16,21 @@ const MobileMenuWrapper = styled.nav`
 const MobileMenuList = styled.div`
   @media ${({ theme }) => theme.device.phoneMax} {
     display: flex;
+    overflow-y: hidden;
     flex-direction: column;
     justify-content: center;
     background: ${({ theme }) => theme.colors.background};
     width: 100%;
-    height: 100%;
+    height: 100vh;
     text-align: right;
     transform: ${({ open }) =>
       open ? "translateX(-50%)" : "translateX(100%)"};
     display: ${({ open }) => (open ? "" : "none")};
-    position: absolute;
+    position: fixed;
+    overflow-y: hidden;
     top: 0;
     left: 50%;
-    z-index: 10;
+    z-index: 1000;
     transition: all 0.4s ease-in-out;
     text-align: center;
 

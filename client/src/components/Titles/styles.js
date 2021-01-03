@@ -4,6 +4,7 @@ const mainStyles = css`
   color: ${({ theme }) => theme.colors.primary};
   font-weight: ${({ weight }) => (weight ? weight : "normal")};
   font-size: ${({ size }) => (size ? size : "3rem")};
+  background-color: transparent;
 `;
 
 export const FormTitle = styled.h1`
@@ -22,6 +23,15 @@ export const StyledMainHeader = styled.h1`
     }
     &:not(:first-child) {
       font-size: 4.5rem;
+    }
+  }
+
+  @media ${({ theme }) => theme.device.mobileMax} {
+    &:first-child {
+      font-size: 1.75rem;
+    }
+    &:not(:first-child) {
+      font-size: 3.75rem;
     }
   }
 `;

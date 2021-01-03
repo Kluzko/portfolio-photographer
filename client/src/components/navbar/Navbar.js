@@ -13,10 +13,11 @@ const Logo = styled.div`
   margin-top: 1em;
   margin-left: 10%;
   z-index: 100;
+  background: transparent;
   a {
     font-weight: bold;
-    font-size: 1.4rem;
-    color: ${({ theme }) => theme.primary};
+    font-size: 1.6rem;
+    color: ${({ theme }) => theme.colors.primary};
   }
 `;
 

@@ -9,10 +9,12 @@ const StyledMenu = styled.div`
     display: none;
     visibility: 0;
   }
-
+  z-index: 5;
+  background: transparent;
   li {
     margin-top: 1.4em;
-    margin-right: 2em;
+    margin-right: 1.9em;
+    background: transparent;
   }
   a {
     font-weight: 400;

@@ -5,6 +5,7 @@ import Slider from "../components/Slider";
 import { HomePageWrapper, TextWrapper } from "../components/Wrappers";
 import { HomepageTitle } from "../components/Titles";
 import SectionAlbums from "../components/SectionAlbum";
+
 const Home = () => {
   return (
     <>
