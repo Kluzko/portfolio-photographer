@@ -15,8 +15,8 @@ form, fieldset, input, p, blockquote, table, th, td, embed, object {
   body{
 		position:relative;
 		height:100vh;
-		overflow-x:none;
-		overflow-y:none;
+		overflow-x:hidden;
+	
 	}
 table {
 	border-collapse: collapse;

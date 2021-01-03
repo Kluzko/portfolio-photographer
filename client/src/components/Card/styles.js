@@ -13,9 +13,9 @@ const Wrapper = styled.div`
 
 const Card = styled.div`
   background-image: ${({ bckImg }) => `url(${bckImg})`};
-  background-size: cover;
   background-repeat: no-repeat;
-  width: ${({ width }) => (width ? width : "400px")};
+  background-size: cover;
+  width: ${({ width }) => (width ? width : "100%")};
   height: ${({ height }) => (height ? height : "400px")};
   display: flex;
   justify-content: center;

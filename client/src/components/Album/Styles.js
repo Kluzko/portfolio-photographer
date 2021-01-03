@@ -1,58 +1,4 @@
-import styled, { css } from "styled-components";
-
-const Title = styled.h1`
-  color: #705b5b;
-  font-size: 2.5rem;
-  letter-spacing: 3px;
-  margin-bottom: 3rem;
-`;
-
-// error msg
-const ErrorMsg = styled.p`
-  color: #ff9494;
-`;
-// base Styles for input components
-const baseInputStyles = css`
-  border: 2px solid #b7acac;
-  padding: 0.7em;
-  width: ${(width) => (width ? width : "400px")};
-  margin-top: 1.5rem;
-`;
-// Label
-const StyledLabel = styled.label`
-  width: 100%;
-  display: inline-block;
-  font-size: 1.2rem;
-  margin-top: 1rem;
-`;
-
-const DefaultInput = styled.input`
-  ${baseInputStyles}
-`;
-
-const Dropzone = styled.div`
-  height: 1rem;
-  margin-top: 1rem;
-  padding: 1rem;
-  border: ${({ isDragActive }) =>
-    isDragActive ? "2px solid purple" : "2px dashed salmon"};
-  display: flex;
-  width: 11rem;
-  justify-content: center;
-  align-items: center;
-  font-size: 0.9rem;
-  font-weight: bold;
-  cursor: pointer;
-`;
-
-const StyledButton = styled.button`
-  margin-top: 1rem;
-  padding: 0.7em;
-  width: ${({ width }) => (width ? width : "320px")};
-  color: ${({ theme }) => theme.colors.primary};
-  border: 1px solid ${({ theme }) => theme.colors.primary};
-  cursor: pointer;
-`;
+import styled from "styled-components";
 
 // Add breakpoints for bigger displays
 const ImageWrapper = styled.div`
@@ -117,12 +63,4 @@ const ImageWrapper = styled.div`
   }
 `;
 
-export {
-  Title,
-  DefaultInput,
-  StyledLabel,
-  StyledButton,
-  ErrorMsg,
-  Dropzone,
-  ImageWrapper,
-};
+export { ImageWrapper };

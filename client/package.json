@@ -12,10 +12,14 @@
     "react-dom": "^17.0.1",
     "react-dropzone": "^11.2.4",
     "react-icons": "^4.1.0",
+    "react-id-swiper": "^4.0.0",
     "react-loader-spinner": "^3.1.14",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.4",
-    "styled-components": "^5.2.0"
+    "react-slick": "^0.27.13",
+    "slick-carousel": "^1.8.1",
+    "styled-components": "^5.2.0",
+    "swiper": "^6.4.5"
   },
   "scripts": {
     "start": "react-scripts start",

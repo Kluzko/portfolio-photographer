@@ -6,6 +6,7 @@ const breakPoints = {
   mobile: "599.98px",
   tablet: "767.98px",
   tabletXl: "1099.98px",
+  laptop: "1399.98px",
 };
 
 const theme = {
@@ -20,6 +21,7 @@ const theme = {
     phoneMin: `(min-width: ${breakPoints.mobile})`,
     tabletMax: `(max-width: ${breakPoints.tablet})`,
     tabletXlMax: `(max-width: ${breakPoints.tabletXl})`,
+    laptopMax: `(max-width: ${breakPoints.laptop})`,
   },
 };
 

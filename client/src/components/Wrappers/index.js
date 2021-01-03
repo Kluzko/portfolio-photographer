@@ -28,3 +28,24 @@ export const ButtonWrapper = styled.div`
   background: black;
   padding-top: 20px;
 `;
+
+export const TextWrapper = styled.div`
+  line-height: 1.4;
+  position: absolute;
+  top: ${({ top }) => (top ? top : "0px")};
+  left: ${({ left }) => (left ? left : "0px")};
+  z-index: 100;
+  background: transparent;
+  display: flex;
+  flex-flow: column;
+`;
+
+export const HomePageWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-flow: row;
+  align-items: center;
+  overflow-x: none;
+  position: relative;
+  height: 100vh;
+`;

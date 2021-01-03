@@ -9,7 +9,8 @@ import Form from "../components/Forms/Form";
 import { FormWrapper } from "../components/Wrappers";
 
 // Styles
-import { Title, ErrorMsg, ImageWrapper } from "../components/Album/Styles";
+import { ImageWrapper } from "../components/Album/Styles";
+import { FormTitle } from "../components/Titles/styles";
 
 // Max file size in Bytes
 // 8 MB
@@ -48,7 +49,7 @@ const EditAlbum = () => {
 
   return (
     <FormWrapper>
-      <Title>Add Album</Title>
+      <FormTitle>Add Album</FormTitle>
 
       <Form
         file={file}
@@ -78,7 +79,7 @@ const EditAlbum = () => {
 
         {previewSrc && isPreviewAvailable && (
           <ImageWrapper>
-            <Title>Album Cart Preview</Title>
+            <FormTitle>Album Cart Preview</FormTitle>
             <p
               style={{
                 color: color,
@@ -91,11 +92,7 @@ const EditAlbum = () => {
         )}
 
         <SubmitButton width="15rem" loading={Loading} />
-        {errorMsg && (
-          <div>
-            <ErrorMsg>{errorMsg}</ErrorMsg>
-          </div>
-        )}
+        {errorMsg && <div>{errorMsg}</div>}
       </Form>
     </FormWrapper>
   );
