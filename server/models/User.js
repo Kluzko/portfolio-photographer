@@ -7,12 +7,32 @@ const userSchema = new mongoose.Schema({
   },
   email: {
     type: String,
-    match: [/\S+@\S+\.\S+/, "Please enter a valid email address."],
+    match: [
+      /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
+      "Please enter a valid email address.",
+    ],
   },
   password: {
     type: String,
     required: true,
   },
+  role: {
+    type: String,
+    required: true,
+    enum: ["user", "bloger", "admin"],
+  },
+  articles: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: "Blog",
+    },
+  ],
+  albums: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: "Album",
+    },
+  ],
 });
 
-module.exports = mongoose.model("user", userSchema);
+module.exports = mongoose.model("User", userSchema);

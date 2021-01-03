@@ -7,7 +7,14 @@ const {
   createAlbum,
 } = require("../controllers/albums");
 
+// Include other resource routers
+const imageRouter = require("./images");
+
 const router = Router();
+
+// Re-route into other resource routers
+
+router.use("/:albumId/image", imageRouter);
 
 router.route("/").get(getAlbums).post(createAlbum);
 

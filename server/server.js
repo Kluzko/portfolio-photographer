@@ -14,6 +14,7 @@ connectDB();
 
 // Route files
 const albums = require("./routes/albums");
+const images = require("./routes/images");
 
 const app = express();
 // body parser
@@ -28,6 +29,7 @@ if (process.env.NODE_ENV === "development") {
 }
 // Mount routers
 app.use("/api/v1/albums", albums);
+app.use("/api/v1/images", images);
 
 // custom error handler
 app.use(errorHandler);
