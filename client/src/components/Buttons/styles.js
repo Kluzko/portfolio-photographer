@@ -47,3 +47,17 @@ export const StyledDialogButton = styled.button`
     background-color: red;
   }
 `;
+
+export const StyledLinkButton = styled.button`
+  ${baseButtonStyles}
+  background-color: transparent;
+  border: 1px solid ${({ theme }) => theme.colors.primary};
+  border-radius: 30px;
+  color: ${({ theme }) => theme.colors.primary};
+  width: 150px;
+  &:hover {
+    cursor: pointer;
+    background-color: ${({ theme }) => theme.colors.primary};
+    color: white;
+  }
+`;

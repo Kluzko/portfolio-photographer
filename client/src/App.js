@@ -10,6 +10,7 @@ import AddAlbum from "./pages/AddAlbum";
 import Albums from "./pages/Albums";
 import Album from "./pages/Album";
 import EditAlbum from "./pages/EditAlbum";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route exact path="/albums" component={Albums} />
         <Route path="/albums/:id" component={Album} />
         <Route path="/editAlbum/:id" component={EditAlbum} />
+        <Footer />
       </Theme>
     </Router>
   );

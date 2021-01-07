@@ -24,6 +24,7 @@ const theme = {
     tabletXlMin: `(min-width: ${breakPoints.tabletXl})`,
     laptopMax: `(max-width: ${breakPoints.laptop})`,
   },
+  maxWidth: "1470px",
 };
 
 const Theme = ({ children }) => (

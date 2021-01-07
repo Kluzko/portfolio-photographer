@@ -11,6 +11,7 @@ const StyledMenu = styled.div`
   }
   z-index: 5;
   background: transparent;
+
   li {
     margin-top: 1.4em;
     margin-right: 1.9em;
@@ -18,6 +19,19 @@ const StyledMenu = styled.div`
   }
   a {
     font-weight: 400;
+  }
+
+  @media ${({ theme }) => theme.device.tabletXlMax} {
+    a {
+      color: ${({ theme }) => theme.colors.primaryHover};
+      transition: all 0.2s ease-in;
+    }
+    li:hover > a {
+      border: 1px solid ${({ theme }) => theme.colors.primary};
+      background: ${({ theme }) => theme.colors.primary};
+      color: ${({ theme }) => theme.colors.background};
+      padding: 3px;
+    }
   }
 `;
 

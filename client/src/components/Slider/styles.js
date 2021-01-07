@@ -4,7 +4,7 @@ export const SliderWrapper = styled.div`
   position: absolute;
   top: 150px;
   width: 40%;
-  height: "500px";
+  height: 500px;
   right: 20px;
   @media ${({ theme }) => theme.device.tabletXlMax} {
     visibility: hidden;
@@ -33,11 +33,9 @@ export const Background = styled.div`
   img {
     background-repeat: no-repeat;
     background-size: cover;
-    width: 100%;
+    width: 100vw;
     height: 900px;
-    margin-top: -450px;
+    margin-top: -30rem;
     opacity: 0.6;
   }
-  left: 3%;
-  right: 3%;
 `;

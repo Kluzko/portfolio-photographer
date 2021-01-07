@@ -4,7 +4,9 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "../components/Slider";
 import { HomePageWrapper, TextWrapper } from "../components/Wrappers";
 import { HomepageTitle } from "../components/Titles";
-import SectionAlbums from "../components/SectionAlbum";
+import SectionAlbums from "../components/Sections/Album";
+import About from "../components/Sections/About/";
+import Contact from "../components/Sections/Contact/";
 
 const Home = () => {
   return (
@@ -19,6 +21,8 @@ const Home = () => {
         <Slider />
       </HomePageWrapper>
       <SectionAlbums />
+      <About />
+      <Contact />
     </>
   );
 };

@@ -47,5 +47,8 @@ export const HomePageWrapper = styled.div`
   align-items: center;
   overflow-x: none;
   position: relative;
-  height: 100vh;
+  height: 95vh;
+  @media ${({ theme }) => theme.device.tabletXlMax} {
+    height: 70vh;
+  }
 `;

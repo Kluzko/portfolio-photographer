@@ -1,27 +1,20 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.section`
-  height: 100vh;
   position: relative;
-  margin-left: 10%;
-  margin-right: 10%;
-  @media ${({ theme }) => theme.device.tabletXlMax} {
-    margin-left: 5%;
-    margin-right: 5%;
-  }
-  @media ${({ theme }) => theme.device.tabletMax} {
-    margin-left: 10%;
-    margin-right: 10%;
-  }
+  margin-left: auto;
+  margin-right: auto;
+  max-width: ${({ theme }) => theme.maxWidth};
+  width: 100%;
 `;
 
 export const AlbumWrapper = styled.div`
-  position: absolute;
+  position: relative;
   top: 200px;
   width: 100%;
   height: auto;
-  justify-content: center;
   display: grid;
+
   gap: 30px;
   padding-bottom: 30px;
 
@@ -46,6 +39,15 @@ export const AlbumWrapper = styled.div`
     grid-area: travel;
   }
 
+  .button-wrapper {
+    border: 2px solid ${({ theme }) => theme.colors.primary};
+    border-radius: 40px;
+    text-align: center;
+    padding: 10px 20px;
+    position: absolute;
+    bottom: -3%;
+    left: 40%;
+  }
   div:hover {
     transform: scale(0.99);
     z-index: 300;
@@ -57,11 +59,8 @@ export const AlbumWrapper = styled.div`
       "animals animals animals animals"
       "cities cities cities cities"
       "travel travel travel travel";
-
-    div {
-      object-fit: cover;
-    }
   }
+  object-fit: contain;
 
   @media ${({ theme }) => theme.device.tabletMax} {
     div {
@@ -71,7 +70,12 @@ export const AlbumWrapper = styled.div`
   @media ${({ theme }) => theme.device.phoneMax} {
     div {
       height: 20rem;
-      width: 25.5rem;
     }
   }
+`;
+
+export const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 15rem;
 `;
