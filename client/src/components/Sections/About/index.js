@@ -13,7 +13,7 @@ const About = () => {
   const [value, setValue] = useState(0);
 
   const { title, info } = about[value];
-  console.log(title, info);
+
   return (
     <AboutWrapper>
       <Title>

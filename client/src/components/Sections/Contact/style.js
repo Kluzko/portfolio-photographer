@@ -61,6 +61,8 @@ export const StyledTextArea = styled.textarea`
   border-color: ${({ theme }) => theme.colors.primary};
   grid-area: 1 / 3 / 3 / 6;
   resize: none;
+  z-index: 3;
+
   @media ${({ theme }) => theme.device.tabletMax} {
     grid-area: 3 / 1 / 5 / 4;
     height: 5rem;
