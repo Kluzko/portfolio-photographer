@@ -27,9 +27,9 @@ const sendData = async (data) => {
 
 const ContactForm = () => {
   const [contact, setContact] = useState({
-    email: "kluzniakkuba@gmail.com",
-    title: "Moj tytul",
-    message: "bardzo dlugi opis super ze sie udalo",
+    email: "",
+    title: "",
+    message: "",
   });
 
   const clearValues = () => {
