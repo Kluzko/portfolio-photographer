@@ -11,12 +11,15 @@ import Albums from "./pages/Albums";
 import Album from "./pages/Album";
 import EditAlbum from "./pages/EditAlbum";
 import Footer from "./components/Footer";
+import ScrollHandler from "./utils/ScrollHandler";
 
 function App() {
   return (
     <Router>
       <Theme>
         <GlobalStyle />
+        <ScrollHandler />
+
         <Navbar />
         <Route exact path="/" component={Home} />
         <Route path="/addAlbum" component={AddAlbum} />

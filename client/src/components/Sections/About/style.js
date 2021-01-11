@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const AboutWrapper = styled.div`
+export const AboutWrapper = styled.section`
   width: 90vw;
   max-width: ${({ theme }) => theme.maxWidth};
   margin-top: 8rem;

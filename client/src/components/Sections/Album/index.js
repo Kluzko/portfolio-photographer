@@ -4,7 +4,7 @@ import { Wrapper } from "./style";
 import { Text } from "./Text";
 
 const SectionAlbums = () => (
-  <Wrapper>
+  <Wrapper id="#albums">
     <Text />
     <Albums />
   </Wrapper>

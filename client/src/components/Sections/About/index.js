@@ -15,7 +15,7 @@ const About = () => {
   const { title, info } = about[value];
 
   return (
-    <AboutWrapper>
+    <AboutWrapper id="#about">
       <Title>
         <h2>About</h2>
       </Title>

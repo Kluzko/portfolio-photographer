@@ -4,7 +4,7 @@ import { ContactWrapper } from "./style";
 import { Text } from "./Text";
 const Conatct = () => {
   return (
-    <ContactWrapper>
+    <ContactWrapper id="#contact">
       <Text />
 
       <ContactForm />

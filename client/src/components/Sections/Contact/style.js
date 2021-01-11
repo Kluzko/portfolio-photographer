@@ -27,45 +27,57 @@ export const StyledContactForm = styled.form`
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(5, 1fr);
   }
-
-  &.contact-submit {
-    background: black;
+  & > div {
+    @media ${({ theme }) => theme.device.tabletMax} {
+      margin-top: 1rem;
+    }
+    p {
+      text-align: center;
+      width: 70%;
+      padding-top: 0.5rem;
+    }
   }
-`;
-
-export const StyledInput = styled.input.attrs((props) => ({
-  className: props.className,
-}))`
-  padding: 1rem;
-  border: none;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.primary};
-  outline: none;
-  align-self: center;
-
-  &.email {
+  .email {
     grid-area: 1 / 1 / 2 / 3;
     @media ${({ theme }) => theme.device.tabletMax} {
       grid-area: 1 / 1 / 2 / 4;
     }
   }
-  &.title {
+  .title {
     grid-area: 2 / 1 / 3 / 3;
 
     @media ${({ theme }) => theme.device.tabletMax} {
       grid-area: 2 / 1 / 3 / 4;
     }
   }
+  .message {
+    grid-area: 1 / 3 / 3 / 6;
+    @media ${({ theme }) => theme.device.tabletMax} {
+      grid-area: 3 / 1 / 5 / 4;
+      height: 5rem;
+    }
+  }
+`;
+
+export const StyledInput = styled.input`
+  padding: 1rem;
+  border: none;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.primary};
+  outline: none;
+  height: 50%;
+  align-self: center;
+  width: 70%;
 `;
 
 export const StyledTextArea = styled.textarea`
   border-color: ${({ theme }) => theme.colors.primary};
-  grid-area: 1 / 3 / 3 / 6;
+  width: 100%;
+  height: 80%;
   resize: none;
   z-index: 3;
-
   @media ${({ theme }) => theme.device.tabletMax} {
     grid-area: 3 / 1 / 5 / 4;
-    height: 5rem;
+    width: 90%;
   }
 `;
 
@@ -82,7 +94,7 @@ export const StyledSubmit = styled.input`
     background: ${({ theme }) => theme.colors.primary};
   }
   @media ${({ theme }) => theme.device.tabletMax} {
-    grid-area: 5 / 2 / 6 / 3;
-    margin-top: 5rem;
+    grid-area: 5 / 1 / 6 / 3;
+    margin-top: 6rem;
   }
 `;

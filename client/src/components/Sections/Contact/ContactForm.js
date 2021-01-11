@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
 import {
   StyledContactForm,
@@ -6,6 +9,12 @@ import {
   StyledSubmit,
   StyledTextArea,
 } from "./style";
+
+const schema = yup.object().shape({
+  email: yup.string().email().required(),
+  title: yup.string().min(3).max(18).required(),
+  message: yup.string().min(5).max(150).required(),
+});
 
 const sendData = async (data) => {
   console.log(data);
@@ -26,71 +35,66 @@ const sendData = async (data) => {
 };
 
 const ContactForm = () => {
-  const [contact, setContact] = useState({
-    email: "",
-    title: "",
-    message: "",
+  const { register, handleSubmit, errors, reset } = useForm({
+    resolver: yupResolver(schema),
   });
 
-  const clearValues = () => {
-    setContact({
-      email: "",
-      title: "",
-      message: "",
-    });
-  };
-  const printValues = (e) => {
-    e.preventDefault();
-    const { email, title, message } = contact;
-
-    const data = {
-      email,
-      title,
-      message,
-    };
+  const printValues = (data) => {
     sendData(data);
 
-    clearValues();
+    reset();
   };
 
-  const updateField = (e) => {
-    setContact({
-      ...contact,
-      // take value from name val and find it in useState
-      [e.target.name]: e.target.value,
-    });
-  };
   return (
-    <StyledContactForm onSubmit={printValues}>
-      <StyledInput
-        type="text"
-        placeholder="Title"
-        className="title"
-        name="title"
-        required
-        value={contact.title}
-        onChange={updateField}
-        tabindex="0"
-      />
-      <StyledInput
-        type="email"
-        placeholder="E-mail"
-        className="email"
-        name="email"
-        value={contact.email}
-        required
-        onChange={updateField}
-        tabindex="0"
-      />
-      <StyledTextArea
-        placeholder="I want to say that..."
-        name="message"
-        required
-        value={contact.message}
-        onChange={updateField}
-        tabindex="0"
-      />
-      <StyledSubmit type="submit" tabindex="0" value="Submit" />
+    <StyledContactForm onSubmit={handleSubmit(printValues)}>
+      <div className="email">
+        <StyledInput
+          type="text"
+          placeholder="E-mail"
+          name="email"
+          ref={register}
+        />
+        <p
+          style={{
+            color: "red",
+          }}
+        >
+          {errors.email?.message}
+        </p>
+      </div>
+
+      <div className="title">
+        <StyledInput
+          type="text"
+          placeholder="Title"
+          name="title"
+          ref={register}
+        />
+        <p
+          style={{
+            color: "red",
+          }}
+        >
+          {errors.title?.message}
+        </p>
+      </div>
+
+      <div className="message">
+        <StyledTextArea
+          placeholder="I want to say that..."
+          name="message"
+          ref={register}
+        />
+        <p
+          style={{
+            color: "red",
+          }}
+        >
+          {errors.message?.message}
+        </p>
+      </div>
+
+      <StyledSubmit type="submit" value="Submit" />
     </StyledContactForm>
   );
 };

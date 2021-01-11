@@ -3,7 +3,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Swiper from "react-slick";
 import { Background, Dot, SliderWrapper } from "./styles";
-import Image from "../../mountain.jpg";
+import Image from "./mountain.jpg";
 
 const Slider = () => {
   const config = {

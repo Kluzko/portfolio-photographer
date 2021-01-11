@@ -1,24 +1,26 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+
+import { Link } from "react-router-dom";
+
 const MenuLinks = () => (
   <>
     <li>
-      <NavLink to="/">Home</NavLink>
+      <Link to="/">Home</Link>
     </li>
 
     <li>
-      <NavLink to="/albums">Albums</NavLink>
+      <Link to="/#albums">Albums</Link>
     </li>
     <li>
-      <NavLink to="/addAlbum">Add album</NavLink>
-    </li>
-
-    <li>
-      <NavLink to="/about">About</NavLink>
+      <Link to="/addAlbum">Add album</Link>
     </li>
 
     <li>
-      <NavLink to="/contact">Contact</NavLink>
+      <Link to="/#about">About</Link>
+    </li>
+
+    <li>
+      <Link to="/#contact">Contact</Link>
     </li>
   </>
 );
