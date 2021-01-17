@@ -3,26 +3,35 @@ const { config } = require("dotenv");
 const morgan = require("morgan");
 const colors = require("colors");
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
 const errorHandler = require("./middleware/error");
 const connectDB = require("./config/db");
 
-// Load env vars
+//  Load env vars
 config({ path: "./config/config.env" });
 
-// Connect to mongo database
+//  Connect to mongo database
 connectDB();
 
-// Route files
+//  Route files
 const albums = require("./routes/albums");
 const images = require("./routes/images");
 const email = require("./routes/email");
+const auth = require("./routes/auth");
 
 const app = express();
-// body parser
-app.use(cors());
+//  body parser
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.disable("etag");
+
+//  cors
+app.use(cors());
+
+//  etag disable
+// app.disable("etag");
+
+// Cookie parser
+app.use(cookieParser());
 
 // Dev logging middleware
 if (process.env.NODE_ENV === "development") {
@@ -32,6 +41,7 @@ if (process.env.NODE_ENV === "development") {
 app.use("/api/v1/albums", albums);
 app.use("/api/v1/images", images);
 app.use("/sendMail", email);
+app.use("/api/v1/auth", auth);
 
 // custom error handler
 app.use(errorHandler);

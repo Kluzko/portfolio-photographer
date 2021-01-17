@@ -7,6 +7,8 @@ const {
   createAlbum,
 } = require("../controllers/albums");
 
+const { protect } = require("../middleware/auth");
+
 // Include other resource routers
 const imageRouter = require("./images");
 
@@ -16,8 +18,12 @@ const router = Router();
 
 router.use("/:albumId/image", imageRouter);
 
-router.route("/").get(getAlbums).post(createAlbum);
+router.route("/").get(getAlbums).post(protect, createAlbum);
 
-router.route("/:id").get(getAlbum).put(updateAlbum).delete(deleteAlbum);
+router
+  .route("/:id")
+  .get(getAlbum)
+  .put(protect, updateAlbum)
+  .delete(protect, deleteAlbum);
 
 module.exports = router;
