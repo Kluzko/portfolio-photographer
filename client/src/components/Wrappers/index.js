@@ -11,12 +11,16 @@ export const CartWrapper = styled.div`
 `;
 
 export const FormWrapper = styled.div`
-  margin-top: 5%;
+  margin-top: 15%;
   margin-left: 10%;
+  height: 90vh;
 
   @media ${({ theme }) => theme.device.phoneMax} {
     margin-top: 10%;
     margin-left: 20%;
+  }
+  @media ${({ theme }) => theme.device.tabletMax} {
+    height: 105vh;
   }
 `;
 
@@ -50,5 +54,42 @@ export const HomePageWrapper = styled.div`
   height: 95vh;
   @media ${({ theme }) => theme.device.tabletXlMax} {
     height: 70vh;
+  }
+`;
+
+export const Wrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100vh;
+  background: transparent;
+`;
+
+export const PreviewWrapper = styled.div`
+  position: absolute;
+  top: 20%;
+  right: 10%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  & > div {
+    max-width: 100%;
+    object-fit: contain;
+  }
+
+  @media ${({ theme }) => theme.device.tabletXlMax} {
+    right: 2%;
+    top: 15%;
+  }
+  @media ${({ theme }) => theme.device.tabletMax} {
+    width: 300px;
+    position: relative;
+    height: 300px;
+    margin-top: 20px;
   }
 `;

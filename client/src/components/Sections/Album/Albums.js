@@ -22,17 +22,16 @@ export const Albums = () => {
           <AlbumWrapper>
             {albums.length > 0 ? (
               albums.map((album) => (
-                <div className={album.name.toLowerCase()} key={album._id}>
-                  <BasicCard
-                    height="34rem"
-                    color={album.color}
-                    bckImg={album.bckImgUrl}
-                    link={`/albums/${album._id}`}
-                    id={album._id}
-                  >
-                    {album.name}
-                  </BasicCard>
-                </div>
+                <BasicCard
+                  height="34rem"
+                  color={album.color}
+                  bckImg={album.bckImgUrl}
+                  link={`/albums/${album._id}`}
+                  id={album._id}
+                  key={album._id}
+                >
+                  {album.name}
+                </BasicCard>
               ))
             ) : (
               <h1>No albums yet</h1>
