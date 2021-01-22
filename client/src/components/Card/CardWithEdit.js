@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
 import { Card, AlbumtTitle, LinkButton, IconWrapper } from "./styles";
 import { Dialog } from "../Dialog";
+import { FetchContext } from "../../context/FetchContext";
 
 const CardWithEdit = ({
   width,
@@ -17,14 +18,12 @@ const CardWithEdit = ({
   deleteId,
 }) => {
   const [state, setState] = useState(false);
+  const fetchContext = useContext(FetchContext);
   const handleClick = () => setState(!state);
 
   const handleDelete = async () => {
-    const res = await fetch(`http://localhost:5000/api/v1/albums/${id}`, {
-      method: "DELETE",
-    });
+    const { data } = await fetchContext.authAxios.delete(`albums/${id}`);
     //to refetch on delete
-    const data = await res.json();
 
     deleteId(data.data);
     handleClick();

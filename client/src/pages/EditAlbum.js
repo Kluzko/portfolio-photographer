@@ -6,11 +6,11 @@ import ColorInput from "../components/Forms/ColorInput";
 import AlbumName from "../components/Forms/TextInput";
 import SubmitButton from "../components/Buttons/SubmitButton";
 import Form from "../components/Forms/Form";
-import { FormWrapper } from "../components/Wrappers";
+import { FormWrapper, PreviewWrapper } from "../components/Wrappers";
 
 // Styles
-import { ImageWrapper } from "../components/Album/Styles";
 import { FormTitle } from "../components/Titles/styles";
+import BasicCard from "../components/Card/BasicCard";
 
 // Max file size in Bytes
 // 8 MB
@@ -78,17 +78,16 @@ const EditAlbum = () => {
         />
 
         {previewSrc && isPreviewAvailable && (
-          <ImageWrapper>
-            <FormTitle>Album Cart Preview</FormTitle>
-            <p
-              style={{
-                color: color,
-              }}
+          <PreviewWrapper>
+            <BasicCard
+              bckImg={previewSrc}
+              width="30rem"
+              height="25rem"
+              color={color}
             >
               {albumName}
-            </p>
-            <img className="preview-image" src={previewSrc} alt="Preview" />
-          </ImageWrapper>
+            </BasicCard>
+          </PreviewWrapper>
         )}
 
         <SubmitButton width="15rem" loading={Loading} />

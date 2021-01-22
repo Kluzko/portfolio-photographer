@@ -18,6 +18,12 @@ form, fieldset, input, p, blockquote, table, th, td, embed, object {
 		overflow-x:hidden;
 	
 	}
+	button,a{
+		cursor: pointer;
+	}
+	input,button{
+		 outline: none;
+	}
 table {
 	border-collapse: collapse;
 	border-spacing: 0;

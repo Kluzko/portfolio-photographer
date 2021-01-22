@@ -4,13 +4,13 @@ export const ContactWrapper = styled.section`
   max-width: ${({ theme }) => theme.maxWidth};
   margin-top: 10rem;
   position: relative;
-  height: 40vh;
+  height: 60vh;
   display: flex;
   flex-flow: column;
   justify-items: center;
 
   @media ${({ theme }) => theme.device.tabletMax} {
-    height: 50vh;
+    height: 70vh;
   }
 `;
 
