@@ -18,6 +18,8 @@ const albums = require("./routes/albums");
 const images = require("./routes/images");
 const email = require("./routes/email");
 const auth = require("./routes/auth");
+const user = require("./routes/users");
+const articles = require("./routes/articles");
 
 const app = express();
 //  body parser
@@ -40,8 +42,10 @@ if (process.env.NODE_ENV === "development") {
 // Mount routers
 app.use("/api/v1/albums", albums);
 app.use("/api/v1/images", images);
+app.use("/api/v1/articles", articles);
 app.use("/sendMail", email);
 app.use("/api/v1/auth", auth);
+app.use("/api/v1/users", user);
 
 // custom error handler
 app.use(errorHandler);
