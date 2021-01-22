@@ -33,24 +33,21 @@ const BlogSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
-  comments: [CommentSchema],
+  // comments: [CommentSchema],
   createdAt: {
     type: Date,
     default: Date.now,
   },
-  meta: {
-    votes: Number,
-    favs: Number,
-  },
+  // meta: {
+  //   votes: Number,
+  //   favs: Number,
+  // },
   slug: String,
 });
 
 BlogSchema.pre("save", function (next) {
-  this.slug = slugify(this.name, { lower: true });
+  this.slug = slugify(this.title, { lower: true });
   next();
 });
 
-const Comment = mongoose.model("Comment", CommentsSchema);
-const Blog = mongoose.model("Blog", BlogSchema);
-
-module.exports = { Comment, Blog };
+module.exports = mongoose.model("Blog", BlogSchema);
