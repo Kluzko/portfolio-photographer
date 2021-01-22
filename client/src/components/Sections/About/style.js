@@ -16,7 +16,7 @@ export const AboutWrapper = styled.section`
     transition: all 0.3s linear;
     font-size: 0.875rem;
     border: 2px solid transparent;
-    cursor: pointer;
+
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
     border-radius: 0.1rem;
     display: block;

@@ -7,7 +7,11 @@ const {
   createAlbum,
 } = require("../controllers/albums");
 
-const { protect } = require("../middleware/auth");
+const Albums = require("../models/Album");
+
+const { protect, authorize } = require("../middleware/auth");
+
+const advancedResults = require("../middleware/advancedResult");
 
 // Include other resource routers
 const imageRouter = require("./images");
@@ -18,12 +22,15 @@ const router = Router();
 
 router.use("/:albumId/image", imageRouter);
 
-router.route("/").get(getAlbums).post(protect, createAlbum);
+router
+  .route("/")
+  .get(advancedResults(Albums), getAlbums)
+  .post(protect, authorize("admin"), createAlbum);
 
 router
   .route("/:id")
   .get(getAlbum)
-  .put(protect, updateAlbum)
-  .delete(protect, deleteAlbum);
+  .put(protect, authorize("admin"), updateAlbum)
+  .delete(protect, authorize("admin"), deleteAlbum);
 
 module.exports = router;

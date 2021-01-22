@@ -1,8 +1,8 @@
 const { Router } = require("express");
-const { sendMail } = require("../controllers/nodemailer");
+const { getMail } = require("../controllers/contact");
 
 const router = Router();
 
-router.route("/").post(sendMail);
+router.route("/").post(getMail);
 
 module.exports = router;
