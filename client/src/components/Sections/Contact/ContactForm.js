@@ -1,6 +1,8 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import axios from "axios";
+import { SERVER_API } from "../../../config";
 import * as yup from "yup";
 
 import {
@@ -17,18 +19,8 @@ const schema = yup.object().shape({
 });
 
 const sendData = async (data) => {
-  console.log(data);
-
   try {
-    const res = await fetch("http://localhost:5000/sendMail", {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const info = await res.json();
-    console.log(info);
+    await axios.post(`${SERVER_API}sendMail`, data);
   } catch (err) {
     console.log(err);
   }

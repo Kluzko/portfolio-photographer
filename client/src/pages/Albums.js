@@ -1,14 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import Loader from "../components/Loader";
 import CardWithEdit from "../components/Card/CardWithEdit";
 import ErrorMessage from "../components/ErrorMessage";
 import { CartWrapper } from "../components/Wrappers";
 import { apiStates, useApi } from "../hooks/useApi";
+import { AuthContext } from "../context/AuthContext";
+import BasicCard from "../components/Card/BasicCard";
 const Albums = () => {
   const {
     data: { state, error, data },
     setRefetch,
   } = useApi("http://localhost:5000/api/v1/albums");
+  const auth = useContext(AuthContext);
+
   const albums = data.data;
   switch (state) {
     case apiStates.ERROR:
@@ -17,21 +21,34 @@ const Albums = () => {
       return (
         <CartWrapper>
           {albums.length > 0 ? (
-            albums.map((album) => (
-              <CardWithEdit
-                width={"23rem"}
-                height="16rem"
-                color={album.color}
-                bckImg={album.bckImgUrl}
-                key={album._id}
-                link={`/albums/${album._id}`}
-                editLink={`editAlbum/${album._id}`}
-                id={album._id}
-                deleteId={setRefetch}
-              >
-                {album.name}
-              </CardWithEdit>
-            ))
+            albums.map((album) =>
+              auth.isAdmin() ? (
+                <CardWithEdit
+                  width={"23rem"}
+                  height="16rem"
+                  color={album.color}
+                  bckImg={album.bckImgUrl}
+                  key={album._id}
+                  link={`/albums/${album._id}`}
+                  editLink={`editAlbum/${album._id}`}
+                  id={album._id}
+                  deleteId={setRefetch}
+                >
+                  {album.name}
+                </CardWithEdit>
+              ) : (
+                <BasicCard
+                  width={"23rem"}
+                  height="16rem"
+                  color={album.color}
+                  bckImg={album.bckImgUrl}
+                  key={album._id}
+                  link={`/albums/${album._id}`}
+                >
+                  {album.name}
+                </BasicCard>
+              )
+            )
           ) : (
             <h1>No albums yet</h1>
           )}

@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
+import axios from "axios";
 import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
-import { UPLOAD_PRESET, CLOUD_NAME, SERVER_API } from "../../config";
+import { UPLOAD_PRESET, CLOUD_NAME } from "../../config";
 import useHasUnmountedRef from "../../hooks/useHasUnmountedRef";
+import { FetchContext } from "../../context/FetchContext";
 
 const uploadImage = async (file) => {
   const url = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/upload`;
@@ -10,34 +12,13 @@ const uploadImage = async (file) => {
   formData.append("file", file);
   formData.append("upload_preset", UPLOAD_PRESET);
 
-  const res = await fetch(url, {
-    method: "POST",
-    body: formData,
-  });
+  const { data, statusText, status } = await axios.post(url, formData);
 
-  if (!res.ok) {
-    throw new Error(`Can't upload image. ${res.status}`);
+  if (statusText !== "OK") {
+    throw new Error(`Can't upload image. ${status}`);
   }
 
-  const data = await res.json();
   return await data.eager[0].secure_url;
-};
-
-const createAlbum = async (data, method, url) => {
-  const res = await fetch(`${SERVER_API}/api/v1/albums${url ? url : ""}`, {
-    method,
-    body: JSON.stringify(data),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-
-  if (!res.ok) {
-    throw new Error(`An error has occurred: ${res.status}`);
-  }
-
-  const json = await res.json();
-  return json.data._id;
 };
 
 const Form = ({
@@ -51,11 +32,21 @@ const Form = ({
   url, //URL FOR PUT OR POST SINGLE OR MULTIPLE ALBUMS
   actualFile, // when You edit album and dont change file its doesnt reupload file
 }) => {
+  const fetchContext = useContext(FetchContext);
   let history = useHistory();
   const hasUnmountedRef = useHasUnmountedRef();
 
   const clearError = () => setError("");
 
+  const createAlbum = async (album) => {
+    const { data } = await fetchContext.authAxios.post(`albums`, album);
+
+    return data.data._id;
+  };
+
+  const updateAlbum = async (album) => {
+    await fetchContext.authAxios.put(`/albums/${url ? url : ""}`, album);
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     clearError();
@@ -64,7 +55,7 @@ const Form = ({
         throw new Error("Please select a file to add.");
       }
 
-      if (!album.trim("") || !color.trim()) {
+      if (!album.trim("") || !color.trim("")) {
         throw new Error("Please enter all the field values.");
       }
       let fileUrl = file;
@@ -81,9 +72,12 @@ const Form = ({
         bckImgUrl: fileUrl || file,
         color: color,
       };
-
-      const albumId = await createAlbum(data, method, url);
-
+      let albumId = "";
+      if (method === "POST") {
+        albumId = await createAlbum(data);
+      } else if (method === "PUT") {
+        await updateAlbum(data);
+      }
       if (hasUnmountedRef.current) {
         // escape early because component has unmounted
         return;

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import axios from "axios";
 
 export const apiStates = {
   LOADING: "LOADING",
@@ -17,23 +18,21 @@ export const useApi = (url) => {
   const [refetch, setRefetch] = useState(null);
 
   useEffect(() => {
-    setPartData({
-      state: apiStates.LOADING,
-    });
-    fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
+    async function fetchData() {
+      try {
+        const { data } = await axios(url);
         setPartData({
           state: apiStates.SUCCESS,
           data,
         });
-      })
-      .catch(() => {
+      } catch (err) {
         setPartData({
           state: apiStates.ERROR,
           error: "fetch failed",
         });
-      });
+      }
+    }
+    fetchData();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [refetch]);
