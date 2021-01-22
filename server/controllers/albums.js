@@ -7,39 +7,7 @@ const Album = require("../models/Album");
 // @access Public
 
 exports.getAlbums = asyncHandler(async (req, res, next) => {
-  let query;
-
-  // Copy req.query
-  const reqQuery = { ...req.query };
-
-  // Fileds to exclude
-  const removeFileds = ["page", "limit"];
-
-  // Loop over removeFileds and delete them from reqQuery
-
-  removeFileds.forEach((param) => delete reqQuery[param]);
-
-  // Create query string
-  let queryStr = JSON.stringify(reqQuery);
-
-  // Finding resource
-  query = Album.find(JSON.parse(queryStr));
-
-  // Pagination
-
-  const page = parseInt(req.query.page, 10) || 1;
-  // default 20 albums per page
-  const limit = parseInt(req.query.limit, 10) || 20;
-  const skip = (page - 1) * limit;
-
-  console.log(limit);
-
-  query = query.skip(skip).limit(limit);
-
-  // executing query
-  const albums = await query;
-
-  res.status(200).json({ success: true, count: albums.length, data: albums });
+  res.status(200).json(res.advancedResults);
 });
 
 // @desc Get single album and display photos
@@ -66,6 +34,9 @@ exports.getAlbum = asyncHandler(async (req, res, next) => {
 // @access Private
 
 exports.createAlbum = asyncHandler(async (req, res, next) => {
+  // Add user to req.body
+  req.body.user = req.user.id;
+
   const album = await Album.create(req.body);
 
   res.status(201).json({
