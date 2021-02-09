@@ -1,26 +1,67 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
-const MenuLinks = () => (
-  <>
-    <li>
-      <NavLink to="/">Home</NavLink>
-    </li>
+import React, { useContext } from "react";
 
-    <li>
-      <NavLink to="/albums">Albums</NavLink>
-    </li>
-    <li>
-      <NavLink to="/addAlbum">Add album</NavLink>
-    </li>
+import { Link } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
+import LoginButton from "./LoginButton";
 
-    <li>
-      <NavLink to="/about">About</NavLink>
-    </li>
+const MenuLinks = () => {
+  const auth = useContext(AuthContext);
 
-    <li>
-      <NavLink to="/contact">Contact</NavLink>
-    </li>
-  </>
-);
+  return (
+    <>
+      <li>
+        <Link to="/">Home</Link>
+      </li>
+      <li className="dropdown-container">
+        <Link to="/#albums">Albums</Link>
+        {auth.isAdmin() && (
+          <ul className="dropdown">
+            <li>
+              {" "}
+              <Link to="/#albums">Albums</Link>
+            </li>
+
+            <li>
+              {" "}
+              <Link to="/addAlbum">Add album</Link>
+            </li>
+          </ul>
+        )}
+      </li>
+
+      <li>
+        <Link to="/#about">About</Link>
+      </li>
+
+      <li>
+        <Link to="/#contact">Contact</Link>
+      </li>
+      {auth.isAuthenticated() && (
+        <>
+          <li>
+            <Link to="/dashboard">Dasboard</Link>
+          </li>
+        </>
+      )}
+
+      <li className="dropdown-container">
+        <Link to="/blog">Blog</Link>
+        {(auth.isAdmin() || auth.isBloger()) && (
+          <ul className="dropdown">
+            <li>
+              <Link to="/blog">Blog</Link>
+            </li>
+            <li>
+              <Link to="/blog/create">Create Article</Link>
+            </li>
+          </ul>
+        )}
+      </li>
+      <li>
+        <LoginButton auth={auth} />
+      </li>
+    </>
+  );
+};
 
 export default MenuLinks;

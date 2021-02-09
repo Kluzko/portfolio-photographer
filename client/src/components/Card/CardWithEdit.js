@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
 import { Card, AlbumtTitle, LinkButton, IconWrapper } from "./styles";
-
 import { Dialog } from "../Dialog";
+import { FetchContext } from "../../context/FetchContext";
 
 const CardWithEdit = ({
   width,
@@ -14,9 +14,20 @@ const CardWithEdit = ({
   children,
   link,
   editLink,
+  id,
+  deleteId,
 }) => {
   const [state, setState] = useState(false);
+  const fetchContext = useContext(FetchContext);
   const handleClick = () => setState(!state);
+
+  const handleDelete = async () => {
+    const { data } = await fetchContext.authAxios.delete(`albums/${id}`);
+    //to refetch on delete
+
+    deleteId(data.data);
+    handleClick();
+  };
 
   return (
     <Card width={width} height={height} bckImg={bckImg}>
@@ -38,7 +49,13 @@ const CardWithEdit = ({
           />
         </div>
       </IconWrapper>
-      {state && <Dialog handleClick={handleClick} />}
+      {state && (
+        <Dialog
+          handleClick={handleClick}
+          handleDelete={handleDelete}
+          deleteText={"Delete"}
+        />
+      )}
     </Card>
   );
 };
@@ -48,7 +65,7 @@ CardWithEdit.propTypes = {
   height: PropTypes.string,
   bckImg: PropTypes.string.isRequired,
   color: PropTypes.string,
-  children: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
   link: PropTypes.string.isRequired,
   editLink: PropTypes.string.isRequired,
 };

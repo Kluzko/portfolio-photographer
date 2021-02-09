@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { DefaultInput, StyledLabel } from "./styles";
 const ColorInput = ({ setColor, color, width }) => {
   return (
@@ -12,6 +13,12 @@ const ColorInput = ({ setColor, color, width }) => {
       />
     </div>
   );
+};
+
+ColorInput.propTypes = {
+  width: PropTypes.string,
+  color: PropTypes.string,
+  setColor: PropTypes.func,
 };
 
 export default ColorInput;

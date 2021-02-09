@@ -9,14 +9,20 @@ form, fieldset, input, p, blockquote, table, th, td, embed, object {
 	margin: 0; 
   font-family: 'Lato', sans-serif;
   color: ${(props) => props.theme.colors.primary};
-  background: ${(props) => props.theme.colors.background}
+  
 	}
- 
+
   body{
 		position:relative;
-		height:100vh;
-		overflow-x:none;
-		overflow-y:none;
+		height:100%;
+		overflow-x:hidden;
+		background: ${(props) => props.theme.colors.background}
+	}
+	button,a{
+		cursor: pointer;
+	}
+	input,button{
+		 outline: none;
 	}
 table {
 	border-collapse: collapse;

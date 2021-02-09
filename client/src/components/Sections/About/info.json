@@ -1,0 +1,33 @@
+[
+  {
+    "id":1,
+    "order":1,
+    "title":"Who am i",
+    "info": ["I love taking pictures from a young age, that is the direction I learned. I have completed my photographic studies at the Warsaw University. In my free time I meet with friends and paint.",
+    "Lover of movies 🎥"
+    ]
+
+  },
+  {
+    "id":2,
+    "order":2,
+    "title":"Experience",
+    "info": [
+      " National Geographic - from 2010 to 2011 ",
+      " TIME - from 2011 to 2015 ",
+      " News Week - from 2015 to present "
+    ]
+
+  },
+  {
+    "id":3,
+    "order":3,
+    "title":"What i use",
+    "info": [
+      "The camera -  Sony A7R IV,Nikon D500",
+      "Laptop - Macbook Pro 2019 ",
+      "Software - Adobe Photoshop,Adobe Lightroom"
+    ]
+
+  }
+]

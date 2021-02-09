@@ -13,14 +13,17 @@ const Wrapper = styled.div`
 
 const Card = styled.div`
   background-image: ${({ bckImg }) => `url(${bckImg})`};
-  background-size: cover;
   background-repeat: no-repeat;
-  width: ${({ width }) => (width ? width : "400px")};
+  background-size: cover;
+  width: ${({ width }) => (width ? width : "100%")};
   height: ${({ height }) => (height ? height : "400px")};
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
+  &:last-child {
+    margin-bottom: 10%;
+  }
 `;
 
 const AlbumtTitle = styled.p`
@@ -38,7 +41,7 @@ const LinkButton = styled(Link)`
   border: 1px solid transparent;
   border-radius: 24px;
   font-weight: bold;
-  background: ${({ background }) => background};
+  background: ${({ background }) => background || "black"};
   position: absolute;
   top: 70px;
   padding: 8px 15px;
@@ -74,4 +77,62 @@ const IconWrapper = styled.div`
   }
 `;
 
-export { Card, Wrapper, AlbumtTitle, LinkButton, IconWrapper };
+// Article Card
+
+const StyledArticleCard = styled.div`
+  display: flex;
+
+  border: 2px solid ${({ theme }) => theme.colors.primary};
+  background-color: white;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  flex-direction: column;
+  width: 50vw;
+  div {
+    display: flex;
+    padding: 10px;
+    margin-bottom: 1rem;
+    justify-content: center;
+    border-bottom: 2px solid gray;
+    position: relative;
+  }
+  @media ${({ theme }) => theme.device.tabletXlMax} {
+    div > h1 {
+      margin-top: 1rem;
+      font-size: 1.5rem;
+    }
+  }
+  span {
+    color: grey;
+    position: absolute;
+    right: 10px;
+  }
+  cursor: pointer;
+  p {
+    color: #545454;
+    padding: 10px;
+    text-align: left;
+  }
+  &:hover {
+    border-color: ${({ theme }) => theme.colors.primaryHover};
+    h1 {
+      color: ${({ theme }) => theme.colors.primaryHover};
+    }
+    div {
+      border-color: black;
+    }
+    p,
+    span {
+      color: black;
+    }
+  }
+`;
+
+export {
+  Card,
+  Wrapper,
+  AlbumtTitle,
+  LinkButton,
+  IconWrapper,
+  StyledArticleCard,
+};

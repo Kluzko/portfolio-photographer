@@ -3,7 +3,7 @@ import Loading from "react-loader-spinner";
 
 const Loader = () => (
   <Loading
-    type="Oval"
+    type="TailSpin"
     style={{
       minHeight: "100vh",
       display: "flex",
