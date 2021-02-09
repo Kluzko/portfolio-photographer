@@ -1,15 +1,20 @@
-import React, { useContext } from "react";
+import React, { Suspense } from "react";
+import Loader from "react-loader-spinner";
+import DashboardDetails from "../components/Dashboard/DasboardDetails";
+import DasboardLinks from "../components/Dashboard/DasboardLinks";
 import { Wrapper } from "../components/Wrappers";
-import { AuthContext } from "../context/AuthContext";
 
 const Dashboard = () => {
-  const auth = useContext(AuthContext);
-  const { username, email } = auth.authState.userInfo;
-
   return (
-    <Wrapper>
-      <p>Username: {username}</p>
-      <p>Email: {email}</p>
+    <Wrapper
+      style={{
+        marginBottom: "2rem",
+      }}
+    >
+      <DasboardLinks startValue={0} />
+      <Suspense fallback={<Loader />}>
+        <DashboardDetails />
+      </Suspense>
     </Wrapper>
   );
 };

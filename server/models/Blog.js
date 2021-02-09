@@ -42,6 +42,10 @@ const BlogSchema = new mongoose.Schema({
   //   votes: Number,
   //   favs: Number,
   // },
+  published: {
+    type: Boolean,
+    default: false,
+  },
   slug: String,
 });
 

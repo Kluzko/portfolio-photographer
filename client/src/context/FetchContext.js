@@ -16,6 +16,7 @@ const FetchProvider = ({ children }) => {
   authAxios.interceptors.request.use(
     (config) => {
       config.headers.Authorization = `Bearer ${authContext.authState.token}`;
+      config.cache = "Cache-Control: no-cache ";
       return config;
     },
     (error) => {

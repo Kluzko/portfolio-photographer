@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Button from "../Buttons/BasicButton";
+import { BasicButton } from "../Buttons";
 
 export const DialogContainer = styled.div`
   border: 2px solid #000;
@@ -13,6 +13,6 @@ export const DialogContainer = styled.div`
   margin-top: -5vh;
 `;
 
-export const DialogButton = styled(Button)`
+export const DialogButton = styled(BasicButton)`
   background: black;
 `;

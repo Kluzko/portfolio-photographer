@@ -29,12 +29,22 @@ const AuthProvider = ({ children }) => {
     });
   };
 
+  const setUserInfo = (userInfo) => {
+    localStorage.setItem("userInfo", JSON.stringify(userInfo));
+
+    setAuthState({
+      userInfo,
+      token,
+      expiresAt,
+    });
+  };
+
   const logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("userInfo");
     localStorage.removeItem("expiresAt");
     setAuthState({});
-    history.push("/login");
+    history.push("/");
   };
 
   const isAuthenticated = () => {
@@ -62,6 +72,7 @@ const AuthProvider = ({ children }) => {
       value={{
         authState,
         setAuthState: (authInfo) => setAuthInfo(authInfo),
+        setUserState: (authInfo) => setUserInfo(authInfo),
         logout,
         isAuthenticated,
         isAdmin,

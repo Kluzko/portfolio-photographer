@@ -8,39 +8,18 @@ const slugify = require("slugify");
 // @access Public
 
 exports.getArticles = asyncHandler(async (req, res, next) => {
-  let query;
+  res.status(200).json(res.advancedResults);
+});
 
-  // Copy req.query
-  const reqQuery = { ...req.query };
-
-  // Fileds to exclude
-  const removeFileds = ["page", "limit"];
-
-  // Loop over removeFileds and delete them from reqQuery
-
-  removeFileds.forEach((param) => delete reqQuery[param]);
-
-  // Create query string
-  let queryStr = JSON.stringify(reqQuery);
-
-  // Finding resource
-  query = Blog.find(JSON.parse(queryStr));
-
-  // Pagination
-
-  const page = parseInt(req.query.page, 10) || 1;
-  // default 20 article per page
-  const limit = parseInt(req.query.limit, 10) || 20;
-  const skip = (page - 1) * limit;
-
-  console.log(limit);
-
-  query = query.skip(skip).limit(limit);
-
-  // executing query
-  const article = await query;
-
-  res.status(200).json({ success: true, count: article.length, data: article });
+// @desc Get all user articles
+// @route GET /api/v1/article/user/:id
+// @access Public
+exports.getUserArticles = asyncHandler(async (req, res, next) => {
+  const article = await Blog.find({ author: req.params.id }).exec();
+  res.status(200).json({
+    success: true,
+    data: article,
+  });
 });
 
 // @desc Get single article

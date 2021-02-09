@@ -1,16 +1,21 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 
-import ImageInput from "../components/Forms/ImageInput";
-import ColorInput from "../components/Forms/ColorInput";
-import AlbumName from "../components/Forms/TextInput";
-import SubmitButton from "../components/Buttons/SubmitButton";
-import Form from "../components/Forms/Form";
-import { FormWrapper, PreviewWrapper } from "../components/Wrappers";
+import {
+  ColorInput,
+  TextInput,
+  Form,
+  ImageInput,
+} from "../../components/Forms";
+import { SubmitButton } from "../../components/Buttons";
+
+import { FormWrapper, PreviewWrapper } from "../../components/Wrappers";
 
 // Styles
-import { FormTitle } from "../components/Titles/styles";
-import BasicCard from "../components/Card/BasicCard";
+import { FormTitle } from "../../components/Titles/styles";
+import { BasicCard } from "../../components/Card";
+import { SERVER_API } from "../../config";
 
 // Max file size in Bytes
 // 8 MB
@@ -32,8 +37,7 @@ const EditAlbum = () => {
   let actualFile = React.useRef("");
   React.useEffect(() => {
     async function fetchAlbum() {
-      const res = await fetch(`http://localhost:5000/api/v1/albums/${id}`);
-      const data = await res.json();
+      const { data } = await axios(`${SERVER_API}api/v1/albums/${id}`);
       const album = data.data;
       if (data) {
         setColor(album.color);
@@ -61,14 +65,14 @@ const EditAlbum = () => {
         url={`/${id}`}
         actualFile={actualFile.current}
       >
-        <AlbumName
+        <TextInput
           setValue={setAlubmName}
           width="250px"
           placeholder={"Trip to Ny ...."}
           value={albumName}
         >
           Enter Album Name
-        </AlbumName>
+        </TextInput>
         <ColorInput setColor={setColor} color={color} width="150px" />
         <ImageInput
           setFile={setFile}

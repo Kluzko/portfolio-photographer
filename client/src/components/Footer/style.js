@@ -5,14 +5,22 @@ export const FooterWrapper = styled.footer`
   background: ${({ theme }) => theme.colors.primary};
 
   height: 5rem;
+
+  position: block;
+  bottom: 0;
+  width: 100%;
   display: flex;
   align-items: center;
-  position: block;
   justify-content: space-between;
-  padding-left: 3rem;
-  padding-right: 3rem;
+
   & > div {
     color: white;
     background: transparent;
+    margin-left: 4rem;
+    margin-right: 4rem;
+  }
+
+  & > div:first-child {
+    font-size: 0.8rem;
   }
 `;

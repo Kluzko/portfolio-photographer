@@ -12,6 +12,9 @@ export const ContactWrapper = styled.section`
   @media ${({ theme }) => theme.device.tabletMax} {
     height: 70vh;
   }
+  @media ${({ theme }) => theme.device.phoneMax} {
+    height: 100vh;
+  }
 `;
 
 export const StyledContactForm = styled.form`
@@ -27,6 +30,7 @@ export const StyledContactForm = styled.form`
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(5, 1fr);
   }
+
   & > div {
     @media ${({ theme }) => theme.device.tabletMax} {
       margin-top: 1rem;
@@ -67,6 +71,7 @@ export const StyledInput = styled.input`
   height: 50%;
   align-self: center;
   width: 70%;
+  background: ${({ theme }) => theme.colors.background};
 `;
 
 export const StyledTextArea = styled.textarea`
@@ -95,6 +100,6 @@ export const StyledSubmit = styled.input`
   }
   @media ${({ theme }) => theme.device.tabletMax} {
     grid-area: 5 / 1 / 6 / 3;
-    margin-top: 6rem;
+    margin-top: 7rem;
   }
 `;

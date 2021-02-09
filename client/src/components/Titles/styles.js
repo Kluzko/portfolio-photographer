@@ -26,7 +26,7 @@ export const StyledMainHeader = styled.h1`
     }
   }
 
-  @media ${({ theme }) => theme.device.mobileMax} {
+  @media ${({ theme }) => theme.device.phoneMax} {
     &:first-child {
       font-size: 1.75rem;
     }
@@ -34,8 +34,19 @@ export const StyledMainHeader = styled.h1`
       font-size: 3.75rem;
     }
   }
+  @media ${({ theme }) => theme.device.phoneSmMax} {
+    &:not(:first-child) {
+      font-size: 3rem;
+    }
+  }
 `;
 
 export const StyledPargraph = styled.p`
   ${mainStyles}
+
+  @media ${({ theme }) => theme.device.phoneSmMax} {
+    &:first-child {
+      font-size: 3rem;
+    }
+  }
 `;

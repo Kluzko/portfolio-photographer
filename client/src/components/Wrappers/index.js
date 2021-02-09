@@ -1,26 +1,43 @@
 import styled from "styled-components";
 
+export const MainWrapper = styled.div`
+  position: relative;
+  min-height: 100%;
+`;
+
+export const InnerWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 10%;
+  margin-left: 5rem;
+  width: 100%;
+`;
+
 export const CartWrapper = styled.div`
   margin-top: 5%;
   display: grid;
   grid-auto-rows: 300px;
   grid-template-columns: repeat(auto-fit, minmax(23rem, 1fr));
+
   overflow: none;
   justify-items: center;
   grid-gap: 30px;
+  min-height: 100vh;
+  position: relative;
 `;
 
 export const FormWrapper = styled.div`
   margin-top: 15%;
-  margin-left: 10%;
-  height: 90vh;
+  margin-left: 0%;
+  height: 100vh;
 
+  @media ${({ theme }) => theme.device.tabletMax} {
+    height: 105vh;
+  }
   @media ${({ theme }) => theme.device.phoneMax} {
     margin-top: 10%;
     margin-left: 20%;
-  }
-  @media ${({ theme }) => theme.device.tabletMax} {
-    height: 105vh;
+    height: 120vh;
   }
 `;
 
@@ -60,17 +77,34 @@ export const HomePageWrapper = styled.div`
 export const Wrapper = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
   background: transparent;
+  position: relative;
+
+  .toolbar {
+    background: white;
+    div {
+      background: white;
+    }
+  }
+  .wrapper-class {
+    width: 60vw;
+    height: 50vh;
+  }
+  .editor-class {
+    border: 1px solid black;
+    background: white;
+    div {
+      background: white;
+    }
+  }
 `;
 
 export const PreviewWrapper = styled.div`
   position: absolute;
   top: 20%;
   right: 10%;
-  height: 100%;
 
   display: flex;
   flex-direction: column;
@@ -85,6 +119,9 @@ export const PreviewWrapper = styled.div`
   @media ${({ theme }) => theme.device.tabletXlMax} {
     right: 2%;
     top: 15%;
+    & > div {
+      width: 350px;
+    }
   }
   @media ${({ theme }) => theme.device.tabletMax} {
     width: 300px;
@@ -92,4 +129,42 @@ export const PreviewWrapper = styled.div`
     height: 300px;
     margin-top: 20px;
   }
+  @media ${({ theme }) => theme.device.phoneMax} {
+    left: -12%;
+  }
+`;
+
+export const MasonryLayout = styled.div`
+  margin: 10% 2rem 5rem 2rem;
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 15rem;
+  grid-gap: 10px;
+  grid-auto-flow: row;
+  @media ${({ theme }) => theme.device.tabletMax} {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media ${({ theme }) => theme.device.phoneMax} {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: 50% 50%;
+  }
+`;
+
+export const ArticleWrapper = styled.div`
+  width: 90vw;
+  height: 100%;
+  border-radius: 10px;
+
+  background: white;
+  li {
+    list-style: inside;
+  }
+  margin-top: 10%;
 `;

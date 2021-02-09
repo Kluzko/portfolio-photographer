@@ -1,18 +1,18 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import axios from "axios";
+import { useSendFormData } from "../../hooks/useSendFormData";
 import {
   AuthFormContainer,
   AuthStyledForm,
   StyledInput,
   SubmitInput,
-} from "../components/Forms/styles";
-import { AuthContext } from "../context/AuthContext";
-import { Wrapper } from "../components/Wrappers";
-import useHasUnmountedRef from "../hooks/useHasUnmountedRef";
+} from "../../components/Forms/styles";
+import { AuthContext } from "../../context/AuthContext";
+import { Wrapper } from "../../components/Wrappers";
+import { useRedirectAuthenicatedUser } from "../../hooks/useRedirectAuthenticatedUser";
 
 const schema = yup.object().shape({
   email: yup.string().email().required("This field is required"),
@@ -24,38 +24,33 @@ const schema = yup.object().shape({
 });
 
 const Login = () => {
+  // if user is authenticated he cant get to login
+  useRedirectAuthenicatedUser();
   const authContext = useContext(AuthContext);
-  const [error, setError] = useState();
-  const [loading, setLoading] = useState(false);
   let history = useHistory();
-
-  const hasUnmountedRef = useHasUnmountedRef();
+  const {
+    sendFormData,
+    data: { loading, error, success },
+  } = useSendFormData();
 
   const { handleSubmit, register, errors, reset } = useForm({
     resolver: yupResolver(schema),
   });
   const handleLogin = async (credentials) => {
-    setError("");
-    setLoading(true);
-    try {
-      const { data } = await axios.post(
-        "http://localhost:5000/api/v1/auth/login",
-        credentials
-      );
-      authContext.setAuthState(data);
-      setError(null);
-      history.push("/");
-      if (hasUnmountedRef.current) {
-        // escape early because component has unmounted
-        return;
-      }
-      setLoading(false);
-    } catch (err) {
-      setLoading(false);
-      const { data } = err.response;
-      setError(data.error);
-    }
+    const userInfo = await sendFormData({
+      url: `auth/login`,
+      success: "Successful login",
+      method: "post",
+      formData: credentials,
+      auth: true,
+    });
 
+    if (userInfo) {
+      authContext.setAuthState(userInfo);
+      setTimeout(() => {
+        history.push("/dashboard");
+      }, 1200);
+    }
     reset();
   };
 
@@ -65,6 +60,7 @@ const Login = () => {
         <h2>Login</h2>
         <AuthStyledForm onSubmit={handleSubmit(handleLogin)}>
           {error && <p className="errorMsg errorMain">{error}</p>}
+          {success && <p className="successrMsg errorMsg">{success}</p>}
           <StyledInput
             type="email"
             placeholder="Email"

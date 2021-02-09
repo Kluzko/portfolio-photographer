@@ -3,6 +3,7 @@ import { ThemeProvider } from "styled-components";
 // theme for website
 
 const breakPoints = {
+  smallMobile: "400px",
   mobile: "599.98px",
   tablet: "767.98px",
   tabletXl: "1099.98px",
@@ -17,6 +18,7 @@ const theme = {
     error: "#ED4337",
   },
   device: {
+    phoneSmMax: `(max-width: ${breakPoints.smallMobile})`,
     phoneMax: `(max-width: ${breakPoints.mobile})`,
     phoneMin: `(min-width: ${breakPoints.mobile})`,
     tabletMax: `(max-width: ${breakPoints.tablet})`,

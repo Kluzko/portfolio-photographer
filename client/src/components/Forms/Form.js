@@ -97,7 +97,12 @@ const Form = ({
 };
 
 Form.propTypes = {
-  file: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  file: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.array,
+    PropTypes.object,
+  ]),
+
   loading: PropTypes.func,
   setError: PropTypes.func,
   album: PropTypes.string.isRequired,

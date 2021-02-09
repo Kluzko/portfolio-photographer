@@ -1,64 +1,11 @@
 import React, { useRef, useState } from "react";
-import styled from "styled-components";
 import BurgerIcon from "./BurgerIcon";
 
 import { useLinkClick } from "../../hooks/useLinkClik";
 
 import MenuLinks from "./MenuLinks";
+import { MobileMenuList, MobileMenuWrapper } from "./style";
 
-const MobileMenuWrapper = styled.nav`
-  position: relative;
-  @media ${({ theme }) => theme.device.phoneMin} {
-    visibility: 0;
-    display: none;
-  }
-`;
-const MobileMenuList = styled.div`
-  @media ${({ theme }) => theme.device.phoneMax} {
-    display: flex;
-    overflow-y: hidden;
-    flex-direction: column;
-    justify-content: center;
-    background: ${({ theme }) => theme.colors.background};
-    width: 100%;
-    height: 100vh;
-    text-align: right;
-    transform: ${({ open }) =>
-      open ? "translateX(-50%)" : "translateX(100%)"};
-    display: ${({ open }) => (open ? "" : "none")};
-    position: fixed;
-    overflow-y: hidden;
-    top: 0;
-    left: 50%;
-    z-index: 1000;
-    transition: all 0.4s ease-in-out;
-    text-align: center;
-
-    @media (${({ theme }) => theme.device.phoneMax}) {
-      width: 100%;
-    }
-    li {
-      margin-bottom: 2rem;
-    }
-    a {
-      font-size: 3rem;
-      letter-spacing: 0.5rem;
-      color: ${({ theme }) => theme.colors.primary};
-      text-decoration: none;
-      transition: color 0.3s linear;
-
-      @media ${({ theme }) => theme.device.phoneMax} {
-        font-size: 2.5rem;
-        text-align: center;
-        vertical-align: center;
-      }
-
-      &:hover {
-        color: ${({ theme }) => theme.colors.primaryHover};
-      }
-    }
-  }
-`;
 const MobileMenu = () => {
   const [open, setOpen] = useState(false);
 

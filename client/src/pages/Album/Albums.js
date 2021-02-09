@@ -1,16 +1,16 @@
 import React, { useContext } from "react";
-import Loader from "../components/Loader";
-import CardWithEdit from "../components/Card/CardWithEdit";
-import ErrorMessage from "../components/ErrorMessage";
-import { CartWrapper } from "../components/Wrappers";
-import { apiStates, useApi } from "../hooks/useApi";
-import { AuthContext } from "../context/AuthContext";
-import BasicCard from "../components/Card/BasicCard";
+import Loader from "../../components/Loader";
+import CardWithEdit from "../../components/Card/CardWithEdit";
+import ErrorMessage from "../../components/ErrorMessage";
+import { CartWrapper } from "../../components/Wrappers";
+import { apiStates, useApi } from "../../hooks/useApi";
+import { AuthContext } from "../../context/AuthContext";
+import { BasicCard } from "../../components/Card";
 const Albums = () => {
   const {
     data: { state, error, data },
     setRefetch,
-  } = useApi("http://localhost:5000/api/v1/albums");
+  } = useApi("albums");
   const auth = useContext(AuthContext);
 
   const albums = data.data;

@@ -20,18 +20,38 @@ import Loader from "./components/Loader";
 // Pages
 // Unauthenticated routes
 import Home from "./pages/Home";
-import Albums from "./pages/Albums";
-import Album from "./pages/Album";
+import Albums from "./pages/Album/Albums";
+import Album from "./pages/Album/Album";
 import Footer from "./components/Footer";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
+import Login from "./pages/Auth/Login";
+import Register from "./pages/Auth/Register";
 import FourOFour from "./pages/404";
+import ForgotPassword from "./pages/Auth/ForgotPassword";
+import ResetPassword from "./pages/Auth/ResetPassword";
+import Blog from "./pages/Blog/Blog";
+import Article from "./pages/Blog/Article";
+
+import { MainWrapper } from "./components/Wrappers";
+
 // authenticated routes
 const Dashboard = lazy(() => import("./pages/Dashboard"));
-
+const ChangePassword = lazy(() =>
+  import("./components/Dashboard/ChangePassword")
+);
 // Admin
-const AddAlbum = lazy(() => import("./pages/AddAlbum"));
-const EditAlbum = lazy(() => import("./pages/EditAlbum"));
+const AddAlbum = lazy(() => import("./pages/Album/AddAlbum"));
+const EditAlbum = lazy(() => import("./pages/Album/EditAlbum"));
+const AdminUsers = lazy(() =>
+  import("./components/Dashboard/Admin/AdminUsers")
+);
+const AdminEditUser = lazy(() =>
+  import("./components/Dashboard/Admin/AdminEditUser")
+);
+// Bloger & Admin
+const CreateArticle = lazy(() => import("./pages/Blog/CreateArticle"));
+const DashboardArticle = lazy(() =>
+  import("./components/Dashboard/DashboardArticle")
+);
 
 const UnauthenticatedRoutes = () => (
   <Switch>
@@ -50,6 +70,18 @@ const UnauthenticatedRoutes = () => (
     <Route path="/albums/:id">
       <Album />
     </Route>
+    <Route path="/passwordForgot">
+      <ForgotPassword />
+    </Route>
+    <Route path="/resetPassword/:resettoken">
+      <ResetPassword />
+    </Route>
+    <Route exact path="/blog">
+      <Blog />
+    </Route>
+    <Route exact path="/blog/:slug">
+      <Article />
+    </Route>
     <Route path="*">
       <FourOFour />
     </Route>
@@ -62,7 +94,7 @@ const AuthenticatedRoute = ({ children, ...rest }) => {
     <Route
       {...rest}
       render={() =>
-        auth.isAuthenticated() ? <>{children}</> : <Redirect to="/" />
+        auth.isAuthenticated() ? <>{children}</> : <Redirect to="/login" />
       }
     ></Route>
   );
@@ -84,6 +116,22 @@ const AdminRoute = ({ children, ...rest }) => {
   );
 };
 
+const BlogerRoute = ({ children, ...rest }) => {
+  const auth = useContext(AuthContext);
+  return (
+    <Route
+      {...rest}
+      render={() =>
+        auth.isAuthenticated() && (auth.isAdmin() || auth.isBloger()) ? (
+          <>{children}</>
+        ) : (
+          <Redirect to="/" />
+        )
+      }
+    ></Route>
+  );
+};
+
 const AppRoutes = () => {
   return (
     <>
@@ -95,8 +143,23 @@ const AppRoutes = () => {
           <AdminRoute path="/editAlbum/:id">
             <EditAlbum />
           </AdminRoute>
-          <AuthenticatedRoute path="/dashboard">
+          <AdminRoute path="/admin/user/:id">
+            <AdminEditUser />
+          </AdminRoute>
+          <AdminRoute exact path="/dashboard/users">
+            <AdminUsers />
+          </AdminRoute>
+          <BlogerRoute path="/blog/create">
+            <CreateArticle />
+          </BlogerRoute>
+          <BlogerRoute path="/dashboard/articles">
+            <DashboardArticle />
+          </BlogerRoute>
+          <AuthenticatedRoute exact path="/dashboard">
             <Dashboard />
+          </AuthenticatedRoute>
+          <AuthenticatedRoute path="/dashboard/changePassword">
+            <ChangePassword />
           </AuthenticatedRoute>
           <UnauthenticatedRoutes />
         </Switch>
@@ -113,10 +176,11 @@ function App() {
           <Theme>
             <GlobalStyle />
             <ScrollHandler />
-
-            <Navbar />
-            <AppRoutes />
-            <Footer />
+            <MainWrapper>
+              <Navbar />
+              <AppRoutes />
+              <Footer />
+            </MainWrapper>
           </Theme>
         </FetchProvider>
       </AuthProvider>

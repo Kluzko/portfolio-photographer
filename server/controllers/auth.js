@@ -92,6 +92,7 @@ exports.updatePassword = asyncHandler(async (req, res, next) => {
   if (!(await user.matchPassword(req.body.currentPassword))) {
     return next(new ErrorResponse("Password incorrect", 401));
   }
+  console.log(req.body.currentPassword);
 
   user.password = req.body.newPassword;
   await user.save();
@@ -119,7 +120,7 @@ exports.forgotPassword = asyncHandler(async (req, res, next) => {
   <h2>You requested for password reset</h2>
   <br>
   <p> Click this link to reset password:</p>
-  <a href="${process.env.CLIENT_URL}reset/${resetToken}">Reset password</a>
+  <a href="${process.env.CLIENT_URL}resetPassword/${resetToken}">Reset password</a>
   `;
 
   try {
@@ -160,7 +161,7 @@ exports.resetPassword = asyncHandler(async (req, res, next) => {
   const user = await User.findOne({
     resetPasswordToken,
     resetPasswordExpire: { $gt: Date.now() },
-  });
+  }).select("+password");
 
   if (!user) {
     return next(new ErrorResponse("Invalid token", 400));

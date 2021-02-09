@@ -37,6 +37,7 @@ export const AuthFormContainer = styled.div`
   width: 60vw;
   background: white;
   height: 600px;
+  margin-top: 10%;
   display: flex;
   box-shadow: 1px 5px 26px 17px rgba(255, 255, 255, 0.46);
   border-radius: 14px;
@@ -71,6 +72,11 @@ export const AuthStyledForm = styled.form`
     text-align: left;
     font-size: 85%;
     width: 60%;
+  }
+  .successrMsg {
+    text-align: center;
+    background: green;
+    color: white;
   }
   .errorMain {
     text-align: center;
@@ -126,4 +132,12 @@ export const SubmitInput = styled.input`
     transform: scale(0.99);
     box-shadow: 2px 2px 20px 0px rgba(50, 50, 50, 0.75);
   }
+`;
+
+export const StyledSelect = styled.select`
+  margin-bottom: 2rem;
+  outline: none;
+  border: 2px solid ${({ theme }) => theme.colors.primary};
+  width: 30%;
+  font-weight: bold;
 `;

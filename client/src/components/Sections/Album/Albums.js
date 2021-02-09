@@ -3,13 +3,13 @@ import { AlbumWrapper, ButtonWrapper } from "./style";
 import { useApi, apiStates } from "../../../hooks/useApi";
 import Loader from "../../Loader";
 import ErrorMessage from "../../ErrorMessage";
-import BasicCard from "../../Card/BasicCard";
-import LinkButton from "../../Buttons/LinkButton";
+import { BasicCard } from "../../Card";
+import { LinkButton } from "../../Buttons";
 
 export const Albums = () => {
   const {
     data: { state, data, error },
-  } = useApi(`http://localhost:5000/api/v1/albums?limit=4`);
+  } = useApi(`albums?limit=4`);
 
   const albums = data.data;
 

@@ -44,7 +44,6 @@ const albumSchema = new mongoose.Schema(
 
 // Delete casecade images when album is deleted
 albumSchema.pre("remove", async function (next) {
-  console.log(`courses being removed from album ${this._id}`);
   await this.model("Image").deleteMany({ album: this._id });
   next();
 });

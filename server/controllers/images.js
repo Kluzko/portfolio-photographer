@@ -9,7 +9,7 @@ const Album = require("../models/Album");
 
 exports.createImage = asyncHandler(async (req, res, next) => {
   // get album Id and sign it as album
-  req.body.album = req.params.albumId;
+
   const album = await Album.findById(req.params.albumId);
 
   if (!album) {
@@ -18,6 +18,7 @@ exports.createImage = asyncHandler(async (req, res, next) => {
       404
     );
   }
+  req.body.album = req.params.albumId;
 
   const image = await Image.create(req.body);
 

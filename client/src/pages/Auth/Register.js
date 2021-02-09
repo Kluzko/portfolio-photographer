@@ -1,15 +1,19 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext } from "react";
+import { Link, useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+
 import * as yup from "yup";
 import {
   AuthFormContainer,
   AuthStyledForm,
   StyledInput,
   SubmitInput,
-} from "../components/Forms/styles";
-import { Wrapper } from "../components/Wrappers";
+} from "../../components/Forms/styles";
+import { AuthContext } from "../../context/AuthContext";
+import { Wrapper } from "../../components/Wrappers";
+import { useSendFormData } from "../../hooks/useSendFormData";
+import { useRedirectAuthenicatedUser } from "../../hooks/useRedirectAuthenticatedUser";
 
 const schema = yup.object().shape({
   username: yup
@@ -33,12 +37,35 @@ const schema = yup.object().shape({
 });
 
 const Register = () => {
-  const { register, handleSubmit, errors } = useForm({
+  useRedirectAuthenicatedUser();
+  const authContext = useContext(AuthContext);
+  const { register, handleSubmit, errors, reset } = useForm({
     resolver: yupResolver(schema),
   });
 
-  const handleRegister = (data) => {
-    console.log(data);
+  const {
+    sendFormData,
+    data: { loading, error, success },
+  } = useSendFormData();
+
+  let history = useHistory();
+
+  const handleRegister = async (credentials) => {
+    const userInfo = await sendFormData({
+      url: `auth/register`,
+      success: "Successful registered",
+      method: "post",
+      formData: credentials,
+      auth: true,
+    });
+
+    if (userInfo) {
+      authContext.setAuthState(userInfo);
+      setTimeout(() => {
+        history.push("/dashboard");
+      }, 1200);
+    }
+    reset();
   };
 
   return (
@@ -46,6 +73,8 @@ const Register = () => {
       <AuthFormContainer>
         <h2>Register</h2>
         <AuthStyledForm onSubmit={handleSubmit(handleRegister)}>
+          {error && <p className="errorMsg errorMain">{error}</p>}
+          {success && <p className="successrMsg errorMsg">{success}</p>}
           <StyledInput
             type="text"
             placeholder="Username"
@@ -74,8 +103,10 @@ const Register = () => {
             ref={register}
           />
           <p className="errorMsg">{errors.password_repeat?.message}</p>
-
-          <SubmitInput type="submit" value="Register" />
+          <SubmitInput
+            type="submit"
+            value={loading ? "Loading..." : "Register"}
+          />
           <p>You have an account?</p>
           <Link to="/login">Login</Link>
         </AuthStyledForm>

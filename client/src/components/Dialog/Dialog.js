@@ -2,9 +2,7 @@ import React from "react";
 import { DialogContainer } from "./styles";
 import { ButtonWrapper } from "../Wrappers";
 import Article from "./Article";
-import BasicButton from "../Buttons/BasicButton";
-import DeleteButton from "../Buttons/DeleteButton";
-import DialogButton from "../Buttons/DialogButton";
+import { BasicButton, DeleteButton, DialogButton } from "../Buttons";
 
 const articleText = "Are you sure you want delete this album";
 
