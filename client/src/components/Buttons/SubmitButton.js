@@ -1,5 +1,6 @@
 import React from "react";
 import Loader from "react-loader-spinner";
+import PropTypes from "prop-types";
 import { StyledButton } from "./styles";
 const SubmitButton = ({ loading, width }) => {
   return (
@@ -29,6 +30,11 @@ const SubmitButton = ({ loading, width }) => {
       )}
     </StyledButton>
   );
+};
+
+PropTypes.SubmitButton = {
+  loading: PropTypes.bool,
+  width: PropTypes.string,
 };
 
 export default SubmitButton;

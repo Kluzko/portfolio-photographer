@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import MultipleImageUpload from "./MultipleImageUpload";
 import ImageInput from "./ImageInput";
 import { SubmitButton } from "../Buttons";
@@ -27,6 +28,10 @@ const FormImageUpload = (id) => {
       <SubmitButton loading={loading} />
     </MultipleImageUpload>
   );
+};
+
+PropTypes.FormImageUpload = {
+  id: PropTypes.string.isRequired,
 };
 
 export default FormImageUpload;

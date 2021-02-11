@@ -57,6 +57,7 @@ const IconWrapper = styled.div`
   right: 10px;
   display: flex;
   font-size: 20px;
+  z-index: 10;
   border: 2px solid ${({ theme }) => theme.colors.primary};
   div {
     display: flex;
@@ -67,6 +68,7 @@ const IconWrapper = styled.div`
     height: 100%;
     width: 50%;
     transition: all 0.3s ease-in-out;
+    border: none;
     &:first-child {
       border-right: 2px solid ${({ theme }) => theme.colors.primary};
     }
@@ -81,7 +83,7 @@ const IconWrapper = styled.div`
 
 const StyledArticleCard = styled.div`
   display: flex;
-
+  position: relative;
   border: 2px solid ${({ theme }) => theme.colors.primary};
   background-color: white;
   border-radius: 5px;
@@ -90,11 +92,13 @@ const StyledArticleCard = styled.div`
   width: 50vw;
   div {
     display: flex;
-    padding: 10px;
     margin-bottom: 1rem;
     justify-content: center;
+    cursor: pointer;
+  }
+  .border {
     border-bottom: 2px solid gray;
-    position: relative;
+    padding: 10px;
   }
   @media ${({ theme }) => theme.device.tabletXlMax} {
     div > h1 {
@@ -107,11 +111,12 @@ const StyledArticleCard = styled.div`
     position: absolute;
     right: 10px;
   }
-  cursor: pointer;
+
   p {
     color: #545454;
     padding: 10px;
     text-align: left;
+    cursor: pointer;
   }
   &:hover {
     border-color: ${({ theme }) => theme.colors.primaryHover};
@@ -127,6 +132,38 @@ const StyledArticleCard = styled.div`
     }
   }
 `;
+// this is terrible but its working
+//I have no nerves for that anymore
+
+const ArticleIconWrapper = styled.div`
+  position: relative;
+  width: 100%;
+  height: 3rem;
+
+  .innerWrapper {
+    position: absolute;
+    z-index: 10;
+    border: 2px solid ${({ theme }) => theme.colors.primary};
+    right: 5%;
+
+    div:first-child {
+      border-right: 1px solid black;
+    }
+    div {
+      margin: 0;
+    }
+    div:hover {
+      background: black;
+      svg {
+        color: white;
+      }
+    }
+    svg {
+      font-size: 1.5rem;
+      padding: 5px;
+    }
+  }
+`;
 
 export {
   Card,
@@ -135,4 +172,5 @@ export {
   LinkButton,
   IconWrapper,
   StyledArticleCard,
+  ArticleIconWrapper,
 };

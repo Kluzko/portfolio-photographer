@@ -11,7 +11,14 @@ const Footer = () => {
           {" "}
           ❤️{" "}
         </span>{" "}
-        by Jakub Kluźniak
+        by{" "}
+        <a
+          href="https://github.com/Kluzko"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Jakub Kluźniak
+        </a>
       </div>
       <div>
         <Link to="/">Go back</Link>

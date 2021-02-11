@@ -18,14 +18,39 @@ const Article = () => {
     case apiStates.SUCCESS:
       const article = data.data;
       const cfg = {
-        inlineStyles: true,
+        inlineStyles: {
+          font: {
+            serif: "font-family: Georgia, Times New Roman, serif",
+            monospace: "font-family: Monaco, Courier New, monospace",
+          },
+          size: {
+            small: "font-size: 0.75rem",
+            large: "font-size: 1.5rem",
+            huge: "font-size: 2.5rem",
+          },
+          indent: (value, op) => {
+            var indentSize = parseInt(value, 10) * 3;
+            var side = op.attributes["direction"] === "rtl" ? "right" : "left";
+            return "padding-" + side + ":" + indentSize + "em";
+          },
+          direction: (value, op) => {
+            if (value === "rtl") {
+              return (
+                "direction:rtl" +
+                (op.attributes["align"] ? "" : "; text-align: inherit")
+              );
+            } else {
+              return "";
+            }
+          },
+        },
       };
       // parse Json to get delta object
       const { ops } = JSON.parse(article.body);
       // convert delta to html
       const converter = new QuillDeltaToHtmlConverter(ops, cfg);
       const html = converter.convert();
-      console.log(html);
+
       return (
         <Wrapper
           style={{

@@ -33,9 +33,9 @@ exports.createImage = asyncHandler(async (req, res, next) => {
 // @access Private
 
 exports.deleteImage = asyncHandler(async (req, res, next) => {
-  const album = await Album.findByIdAndDelete(req.params.id);
+  const image = await Image.findByIdAndDelete(req.params.id);
 
-  if (!album) {
+  if (!image) {
     return next(
       new ErrorResponse(`No album with id of ${req.params.albumId}`),
       404

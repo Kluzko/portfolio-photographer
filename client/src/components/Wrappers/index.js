@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const MainWrapper = styled.div`
   position: relative;
@@ -154,6 +154,9 @@ export const MasonryLayout = styled.div`
     height: 100%;
     object-fit: contain;
     object-position: 50% 50%;
+  }
+  .image-wrapper {
+    position: relative;
   }
 `;
 

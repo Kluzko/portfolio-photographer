@@ -52,6 +52,7 @@ const CreateArticle = lazy(() => import("./pages/Blog/CreateArticle"));
 const DashboardArticle = lazy(() =>
   import("./components/Dashboard/DashboardArticle")
 );
+const EditArticle = lazy(() => import("./pages/Blog/EditArticle"));
 
 const UnauthenticatedRoutes = () => (
   <Switch>
@@ -151,6 +152,9 @@ const AppRoutes = () => {
           </AdminRoute>
           <BlogerRoute path="/blog/create">
             <CreateArticle />
+          </BlogerRoute>
+          <BlogerRoute path="/blog/edit/:slug">
+            <EditArticle />
           </BlogerRoute>
           <BlogerRoute path="/dashboard/articles">
             <DashboardArticle />

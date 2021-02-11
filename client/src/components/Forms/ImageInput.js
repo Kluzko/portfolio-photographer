@@ -71,6 +71,9 @@ ImageInput.propTypes = {
   setFile: PropTypes.func.isRequired,
   setPreviewSrc: PropTypes.func,
   setIsPreviewAvailable: PropTypes.func,
+  multiple: PropTypes.bool,
+  fileQuintity: PropTypes.number,
+  previewSource: PropTypes.bool,
 };
 
 export default ImageInput;

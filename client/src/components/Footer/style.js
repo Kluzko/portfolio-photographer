@@ -12,7 +12,9 @@ export const FooterWrapper = styled.footer`
   display: flex;
   align-items: center;
   justify-content: space-between;
-
+  a:hover {
+    opacity: 0.8;
+  }
   & > div {
     color: white;
     background: transparent;
@@ -20,7 +22,7 @@ export const FooterWrapper = styled.footer`
     margin-right: 4rem;
   }
 
-  & > div:first-child {
+  /* & > div:first-child {
     font-size: 0.8rem;
-  }
+  } */
 `;

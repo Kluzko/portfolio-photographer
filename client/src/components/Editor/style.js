@@ -25,7 +25,7 @@ export const FormEditorContainer = styled.form`
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
     text-align: center;
     p {
       color: ${({ theme }) => theme.colors.error};
@@ -55,6 +55,27 @@ export const FormEditorContainer = styled.form`
     font-weight: bold !important;
     font-style: italic !important;
   }
+  .errorMsg {
+    margin-top: -1.5rem;
+    color: ${({ theme }) => theme.colors.error};
+    font-weight: bold;
+    margin-bottom: 3rem;
+    text-align: left;
+    font-size: 85%;
+    width: 100%;
+  }
+  .successrMsg {
+    text-align: center;
+    background: green;
+    color: white;
+    margin-bottom: 3rem;
+  }
+  .errorMain {
+    text-align: center;
+    background: ${({ theme }) => theme.colors.error};
+    color: white;
+  }
+
   .bottomForm {
     margin-top: 10vh;
     display: flex;
@@ -62,8 +83,11 @@ export const FormEditorContainer = styled.form`
     align-items: center;
     justify-content: center;
     text-align: center;
-    .errorMsg {
+    @media ${({ theme }) => theme.device.phoneMax} {
+      margin-top: 20vh;
+      margin-bottom: 5vh;
     }
+
     select {
       margin-bottom: 1rem;
     }

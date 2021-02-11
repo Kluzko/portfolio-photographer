@@ -8,7 +8,8 @@ import { ArticleCard } from "../../components/Card";
 const Blog = () => {
   const {
     data: { state, data, error },
-  } = useApi(`articles`);
+    setRefetch,
+  } = useApi(`articles?published=true`);
 
   switch (state) {
     case apiStates.ERROR:
@@ -29,6 +30,7 @@ const Blog = () => {
                   key={article._id}
                   slug={article.slug}
                   article={article}
+                  refetch={setRefetch}
                 />
               ))
             ) : (

@@ -36,7 +36,7 @@ export const SectionNavigation = styled.div`
   ul {
     display: flex;
     @media ${({ theme }) => theme.device.phoneMax} {
-      width: 80%;
+      width: 100%;
     }
   }
 
@@ -82,8 +82,11 @@ export const TableWrapper = styled.div`
     border: 2px solid #ffcc00;
     text-align: center;
     display: block;
-    width: 80%;
-    overflow-x: scroll;
+    width: 100%;
+    @media ${({ theme }) => theme.device.phoneSmMax} {
+      overflow-x: scroll;
+      width: 90%;
+    }
   }
 
   td {
