@@ -111,12 +111,15 @@ const StyledArticleCard = styled.div`
     position: absolute;
     right: 10px;
   }
-
+  /* changin height 20px add next line shown of about  */
   p {
     color: #545454;
     padding: 10px;
     text-align: left;
     cursor: pointer;
+    height: 30px;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   &:hover {
     border-color: ${({ theme }) => theme.colors.primaryHover};

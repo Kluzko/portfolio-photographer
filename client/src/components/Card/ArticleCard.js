@@ -1,13 +1,15 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import PropTypes from "prop-types";
 import { Link, useHistory } from "react-router-dom";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
+import { QuillDeltaToHtmlConverter } from "quill-delta-to-html";
+import textVersion from "textversionjs";
 import { getDate } from "../../utils/getDate";
+import { getDescription } from "../../utils/getDescription";
 import { ArticleIconWrapper, StyledArticleCard } from "./styles";
 import { Dialog } from "../Dialog";
 import { FetchContext } from "../../context/FetchContext";
 import { AuthContext } from "../../context/AuthContext";
-import { useQuill } from "react-quilljs";
 
 const ArticleCard = ({ slug, article, refetch }) => {
   const history = useHistory();
@@ -20,16 +22,27 @@ const ArticleCard = ({ slug, article, refetch }) => {
     history.push(`blog/${slug}`);
   };
 
-  const date = getDate(article.createdAt);
-  const jsonText = JSON.parse(article.body);
-
-  let text = jsonText.ops[0].insert;
-
   const handleDelete = async () => {
     const { data } = await fetchContext.authAxios.delete(`articles/${slug}`);
     //to refetch on delete
     refetch(data.data);
   };
+
+  const date = getDate(article.createdAt);
+
+  const cfg = {};
+  const { ops } = JSON.parse(article.body);
+  // convert json to plain html
+  const converter = new QuillDeltaToHtmlConverter(ops, cfg);
+  const html = converter.convert();
+
+  // convert html to plaintext
+
+  const plaintext = textVersion(html);
+
+  // Get shortened verision of plaintext with regex which deletes whites space,showing urls and other stuff which doesnt meant to be shown
+
+  const description = getDescription(plaintext, 200);
 
   return (
     <StyledArticleCard>
@@ -38,7 +51,7 @@ const ArticleCard = ({ slug, article, refetch }) => {
         <span>{date}</span>
       </div>
 
-      <p onClick={handleClick}>{`${text} ...`}</p>
+      <p onClick={handleClick}>{`${description}...`}</p>
       {(auth.isBloger() || auth.isAdmin()) && (
         <ArticleIconWrapper>
           <div className="innerWrapper">
